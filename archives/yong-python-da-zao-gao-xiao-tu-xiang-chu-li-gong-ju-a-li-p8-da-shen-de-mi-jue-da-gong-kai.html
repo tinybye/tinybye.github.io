@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="图像处理，顾名思义，就是对图片进行各种操作，像裁剪、滤镜、变形、特效这些。对于初学者来说，常常觉得图像处理难度大，工具繁多，难以快速上手。然而，随着Python工具和库的丰富，图像处理其实变得相对简单高效。 阿里P8大神的经验告诉我们，Python不仅在人工智能、数据分析上表现强劲，它在图像处理方面也能大展拳脚。今天，我就带你一探阿里P8大神如何用Python快速打造一个高效的图像处理工具。 使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Python打造高效图像处理工具，阿里P8大神的秘诀大公开">
+<meta property="og:url" content="https://blog.anzai.fun/archives/yong-python-da-zao-gao-xiao-tu-xiang-chu-li-gong-ju-a-li-p8-da-shen-de-mi-jue-da-gong-kai.html">
+<meta property="og:site_name" content="安仔的百宝箱">
+<meta property="og:description" content="图像处理，顾名思义，就是对图片进行各种操作，像裁剪、滤镜、变形、特效这些。对于初学者来说，常常觉得图像处理难度大，工具繁多，难以快速上手。然而，随着Python工具和库的丰富，图像处理其实变得相对简单高效。 阿里P8大神的经验告诉我们，Python不仅在人工智能、数据分析上表现强劲，它在图像处理方面也能大展拳脚。今天，我就带你一探阿里P8大神如何用Python快速打造一个高效的图像处理工具。 使用">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-12-22T05:22:03.616Z">
+<meta property="article:modified_time" content="2024-12-22T05:22:03.616Z">
+<meta property="article:author" content="安仔">
+<meta property="article:tag" content="夸克网盘">
+<meta property="article:tag" content="电影">
+<meta property="article:tag" content="电视剧">
+<meta property="article:tag" content="百度网盘">
+<meta property="article:tag" content="英语四六级">
+<meta name="twitter:card" content="summary">
+
+    <meta name="keywords" content="电影,电视剧,夸克网盘,百度网盘,英语四六级">
+
+
+<title >用Python打造高效图像处理工具，阿里P8大神的秘诀大公开</title>
+
+<!-- Favicon -->
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.2.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"blog.anzai.fun","author":"安仔","root":"/","typed_text":null,"theme_version":"2.2.6","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/宝箱.png","icon16":"/img/宝箱.png","icon32":"/img/宝箱.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-12-22 13:22:03"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<!-- hexo injector head_end start --><meta name="baidu-site-verification" content="codeva-t7nonQvebw" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/%E5%AE%9D%E7%AE%B1.png">
+    
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    主页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    文章列表
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                    文章分类
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                            资源分享
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            用Python打造高效图像处理工具，阿里P8大神的秘诀大公开
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        archives
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/anzai.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        安仔
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                添加微信获取更多资源:
+            </div>
+            <div class="trm-label trm-label-light">
+                anzaiyes
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            12/22
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            13:22
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            安仔
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>图像处理，顾名思义，就是对图片进行各种操作，像裁剪、滤镜、变形、特效这些。对于初学者来说，常常觉得图像处理难度大，工具繁多，难以快速上手。然而，随着Python工具和库的丰富，图像处理其实变得相对简单高效。</p>
+<p>阿里P8大神的经验告诉我们，Python不仅在人工智能、数据分析上表现强劲，它在图像处理方面也能大展拳脚。今天，我就带你一探阿里P8大神如何用Python快速打造一个高效的图像处理工具。</p>
+<h2 id="使用Pillow库处理图像"><a href="#使用Pillow库处理图像" class="headerlink" title="使用Pillow库处理图像"></a>使用Pillow库处理图像</h2><p>首先，我们需要一个合适的图像处理库。最常用的当属 <strong>Pillow</strong>，它是Python Imaging Library（PIL）的一个分支，可以轻松地进行图片的读取、修改、保存等操作。</p>
+<h3 id="安装Pillow"><a href="#安装Pillow" class="headerlink" title="安装Pillow"></a>安装Pillow</h3><p>如果你还没有安装Pillow库，可以用以下命令进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install Pillow</span><br></pre></td></tr></table></figure>
+
+<h3 id="打开和显示图片"><a href="#打开和显示图片" class="headerlink" title="打开和显示图片"></a>打开和显示图片</h3><p>Pillow的基本使用非常简单，首先是打开一张图片并展示它。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开图片</span></span><br><span class="line">image = Image.<span class="built_in">open</span>(<span class="string">&#x27;your_image.jpg&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图片</span></span><br><span class="line">image.show()</span><br></pre></td></tr></table></figure>
+
+<p>执行完这段代码后，你应该会看到弹出的图片窗口，显示你选择的图片。</p>
+<p>温馨提示：Pillow支持多种常见格式的图片，如<code>.jpg</code>, <code>.png</code>, <code>.gif</code>等，但需要注意一些特定格式（如GIF动画）可能会有不同的处理方式。</p>
+<h2 id="图像缩放和裁剪"><a href="#图像缩放和裁剪" class="headerlink" title="图像缩放和裁剪"></a>图像缩放和裁剪</h2><p>有时候我们需要对图像进行缩放或裁剪，这也是图像处理中的常见需求。使用Pillow，处理这些问题简单得让你吃惊。</p>
+<h3 id="图像缩放"><a href="#图像缩放" class="headerlink" title="图像缩放"></a>图像缩放</h3><p>假如你要将图片缩小或放大，可以使用 <code>resize()</code> 方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 缩放图像</span></span><br><span class="line">new_image = image.resize((<span class="number">300</span>, <span class="number">300</span>))  <span class="comment"># 将图片大小调整为300x300</span></span><br><span class="line">new_image.show()</span><br></pre></td></tr></table></figure>
+
+<p>这里，<code>(300, 300)</code> 是你想要的新尺寸。你可以根据需要调整宽度和高度。</p>
+<h3 id="图像裁剪"><a href="#图像裁剪" class="headerlink" title="图像裁剪"></a>图像裁剪</h3><p>裁剪就是从图片中选取一部分区域。Pillow也提供了很简单的接口：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 裁剪图像</span></span><br><span class="line">left = <span class="number">100</span></span><br><span class="line">top = <span class="number">100</span></span><br><span class="line">right = <span class="number">400</span></span><br><span class="line">bottom = <span class="number">400</span></span><br><span class="line"></span><br><span class="line">cropped_image = image.crop((left, top, right, bottom))</span><br><span class="line">cropped_image.show()</span><br></pre></td></tr></table></figure>
+
+<p>这个裁剪操作会把原图从 <code>(100, 100)</code> 到 <code>(400, 400)</code> 的区域提取出来，其他部分将被去掉。</p>
+<p>温馨提示：裁剪时，传入的参数 <code>(left, top, right, bottom)</code> 要确保是合法的，否则会抛出错误。</p>
+<h2 id="图像滤镜效果"><a href="#图像滤镜效果" class="headerlink" title="图像滤镜效果"></a>图像滤镜效果</h2><p>对于阿里P8大神而言，图像的艺术化效果必不可少。用Python加上一些常见的滤镜效果，可以让图片瞬间变得不一样。Pillow内置了很多滤镜，像模糊、锐化、轮廓等效果。我们可以试着给图片添加一个简单的模糊效果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> ImageFilter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用模糊效果</span></span><br><span class="line">blurred_image = image.<span class="built_in">filter</span>(ImageFilter.BLUR)</span><br><span class="line">blurred_image.show()</span><br></pre></td></tr></table></figure>
+
+<p>这里我们用 <code>ImageFilter.BLUR</code> 实现了一个简单的模糊效果。除此之外，还有其他的滤镜效果如 <code>SHARPEN</code>（锐化）、<code>CONTOUR</code>（轮廓）、<code>DETAIL</code>（细节增强）等，你可以根据需要选择。</p>
+<p>温馨提示：滤镜效果通常是通过在原图上叠加一些算法来完成的，计算复杂度相对较高。如果图片非常大，使用时要注意性能问题。</p>
+<h2 id="图像转换和保存"><a href="#图像转换和保存" class="headerlink" title="图像转换和保存"></a>图像转换和保存</h2><p>有时候我们需要将图像转换成不同的格式，或是保存到磁盘上。Pillow也支持这些操作。</p>
+<h3 id="图像格式转换"><a href="#图像格式转换" class="headerlink" title="图像格式转换"></a>图像格式转换</h3><p>假设我们要把图片从 <code>.jpg</code> 格式转换为 <code>.png</code> 格式，可以使用 <code>save()</code> 方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将图片保存为PNG格式</span></span><br><span class="line">image.save(<span class="string">&#x27;output_image.png&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果你想把图片转换为灰度图像（黑白），Pillow也能轻松搞定：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 转换为灰度图像</span></span><br><span class="line">grayscale_image = image.convert(<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line">grayscale_image.show()</span><br></pre></td></tr></table></figure>
+
+<p>这里，<code>&#39;L&#39;</code> 表示图像转换为灰度模式，当然你也可以转换为其他模式（如RGB、RGBA等）。</p>
+<p>温馨提示：图片保存时，可以选择不同的压缩质量，像<code>.jpg</code>格式可以设置压缩比例。如果不设置，默认的压缩比例可能不如你想要的好。</p>
+<h2 id="图像处理的优化与性能"><a href="#图像处理的优化与性能" class="headerlink" title="图像处理的优化与性能"></a>图像处理的优化与性能</h2><p>虽然Pillow操作简单，但如果要处理非常大的图像，或者大量的图像批处理，效率可能就成为问题。阿里P8大神在优化图像处理性能时，通常会用到以下技巧：</p>
+<h3 id="使用生成器进行延迟处理"><a href="#使用生成器进行延迟处理" class="headerlink" title="使用生成器进行延迟处理"></a>使用生成器进行延迟处理</h3><p>生成器是Python中的一项强大功能，它允许你逐步地处理大数据，避免一次性加载整个数据集。比如，在处理大量图片时，使用生成器逐个读取和处理图片，能大大提高程序效率。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">process_images</span>(<span class="params">image_list</span>):</span><br><span class="line">    <span class="keyword">for</span> img_path <span class="keyword">in</span> image_list:</span><br><span class="line">        img = Image.<span class="built_in">open</span>(img_path)</span><br><span class="line">        <span class="comment"># 对图片进行一些处理</span></span><br><span class="line">        img = img.resize((<span class="number">300</span>, <span class="number">300</span>))</span><br><span class="line">        img.show()</span><br><span class="line">        <span class="keyword">yield</span> img  <span class="comment"># 返回处理后的图片</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 图片路径列表</span></span><br><span class="line">image_paths = [<span class="string">&#x27;img1.jpg&#x27;</span>, <span class="string">&#x27;img2.jpg&#x27;</span>, <span class="string">&#x27;img3.jpg&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 逐个处理图片</span></span><br><span class="line"><span class="keyword">for</span> processed_img <span class="keyword">in</span> process_images(image_paths):</span><br><span class="line">    <span class="comment"># 做进一步处理</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>这种按需加载的方式，可以有效减少内存的消耗，尤其在处理大量图像时特别有用。</p>
+<p>温馨提示：生成器（<code>yield</code>）只会在需要的时候才生成数据，不会一次性占用大量内存，因此特别适合批量处理。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>从图像的打开、缩放、裁剪，到滤镜效果、格式转换，Pillow都能轻松搞定，简单高效。通过一些技巧和优化方法，阿里P8大神通过Python实现了高效的图像处理工具，提升了处理速度与性能。</p>
+<p>你也可以根据这个思路，创建属于自己的图像处理工具，无论是个人项目还是生产环境，都可以轻松上手。不过，要记住，在处理大规模图像时，一定要考虑性能和内存管理，避免程序崩溃。</p>
+<p>而且，像这种基础的图像处理工具，也有很广泛的应用场景，比如在电商平台中批量修改商品图片、在社交媒体平台自动化生成滤镜效果等等。</p>
+<p>当你掌握了这些技术，或许下一个Python图像处理大师就是你了！</p>
+<h2 id="彩蛋时间"><a href="#彩蛋时间" class="headerlink" title="彩蛋时间"></a>彩蛋时间</h2><p>走过路过不要错过，为大家准备了一份pycharm破解工具，感兴趣的朋友可以看看哈：<a target="_blank" rel="noopener" href="http://codeflyer.esparks.cn/archives/jetbrainsquanjiatongpojie">最新pycharm破解</a></p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/a-li-p8-da-shen-jiao-ni-ru-he-yong-python-gao-xiao-chu-li-wang-luo-qing-qiu-ti-sheng-dai-ma-xing-neng.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">22</div>
+                    <div class="trm-cover-month">2024/12</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/a-li-p8-da-shen-jiao-ni-ru-he-yong-python-gao-xiao-chu-li-wang-luo-qing-qiu-ti-sheng-dai-ma-xing-neng.html" class="trm-anima-link">
+                    阿里P8大神教你如何用Python高效处理网络请求，提升代码性能
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/12/22</li>
+                <li>13:22</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/a-li-p7-da-shen-jiao-ni-yong-python-kai-fa-zi-ji-de-pa-chong-kuang-jia.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">22</div>
+                    <div class="trm-cover-month">2024/12</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/a-li-p7-da-shen-jiao-ni-yong-python-kai-fa-zi-ji-de-pa-chong-kuang-jia.html" class="trm-anima-link">
+                    阿里P7大神教你用Python开发自己的爬虫框架
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/12/22</li>
+                <li>13:21</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v8.1.1
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.6
+            </span>
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.6"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.6"></script>
+
+<!-- CDN --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>

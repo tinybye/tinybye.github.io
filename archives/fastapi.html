@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="构建一个 Web API，最重要的无非就是速度和效率。FastAPI，这个名字直白得让人没法误会，就是来搞速度的。它是基于 Python 的现代 Web 框架，以简洁、高效和极致性能著称。今天咱们就来聊聊这个工具，到底怎么用，为什么快，哪里让你爱不释手。  FastAPI 是个啥？FastAPI 的核心特点是它使用了 Python 的类型提示（Type Hints）和异步支持。它让你写的代码既有高">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FastAPI，构建超快 API 的 Python 终极武器！">
+<meta property="og:url" content="https://blog.anzai.fun/archives/fastapi.html">
+<meta property="og:site_name" content="安仔的百宝箱">
+<meta property="og:description" content="构建一个 Web API，最重要的无非就是速度和效率。FastAPI，这个名字直白得让人没法误会，就是来搞速度的。它是基于 Python 的现代 Web 框架，以简洁、高效和极致性能著称。今天咱们就来聊聊这个工具，到底怎么用，为什么快，哪里让你爱不释手。  FastAPI 是个啥？FastAPI 的核心特点是它使用了 Python 的类型提示（Type Hints）和异步支持。它让你写的代码既有高">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-11-25T12:06:11.967Z">
+<meta property="article:modified_time" content="2024-11-25T12:06:11.967Z">
+<meta property="article:author" content="安仔">
+<meta property="article:tag" content="夸克网盘">
+<meta property="article:tag" content="电影">
+<meta property="article:tag" content="电视剧">
+<meta property="article:tag" content="百度网盘">
+<meta property="article:tag" content="英语四六级">
+<meta name="twitter:card" content="summary">
+
+    <meta name="keywords" content="电影,电视剧,夸克网盘,百度网盘,英语四六级">
+
+
+<title >FastAPI，构建超快 API 的 Python 终极武器！</title>
+
+<!-- Favicon -->
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.2.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"blog.anzai.fun","author":"安仔","root":"/","typed_text":null,"theme_version":"2.2.6","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/宝箱.png","icon16":"/img/宝箱.png","icon32":"/img/宝箱.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-11-25 20:06:11"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<!-- hexo injector head_end start --><meta name="baidu-site-verification" content="codeva-t7nonQvebw" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/%E5%AE%9D%E7%AE%B1.png">
+    
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    主页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    文章列表
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                    文章分类
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                            资源分享
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            FastAPI，构建超快 API 的 Python 终极武器！
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        archives
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/anzai.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        安仔
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                添加微信获取更多资源:
+            </div>
+            <div class="trm-label trm-label-light">
+                anzaiyes
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            11/25
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            20:06
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            安仔
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>构建一个 Web API，最重要的无非就是<strong>速度</strong>和<strong>效率</strong>。FastAPI，这个名字直白得让人没法误会，就是来搞速度的。它是基于 Python 的现代 Web 框架，以简洁、高效和极致性能著称。今天咱们就来聊聊这个工具，到底怎么用，为什么快，哪里让你爱不释手。</p>
+<hr>
+<h2 id="FastAPI-是个啥？"><a href="#FastAPI-是个啥？" class="headerlink" title="FastAPI 是个啥？"></a><strong>FastAPI 是个啥？</strong></h2><p>FastAPI 的核心特点是它使用了 Python 的类型提示（Type Hints）和异步支持。它让你写的代码既有<strong>高可读性</strong>，又能轻松获得性能优势，最妙的是，你再也不用为了文档而“摸鱼”了——API 文档是自动生成的，还是实时的。</p>
+<p>它靠的不是魔法，是基于 Starlette 和 Pydantic 的组合拳，这两位老兄一个管 Web 框架，一个管数据验证，加起来就是强无敌的 API 工具。</p>
+<p>温馨提示：FastAPI 的运行性能接近 Node.js 和 Go，如果你是性能控，这句话基本够了。</p>
+<hr>
+<h2 id="快速上手：Hello-FastAPI"><a href="#快速上手：Hello-FastAPI" class="headerlink" title="快速上手：Hello, FastAPI!"></a><strong>快速上手：Hello, FastAPI!</strong></h2><p>来看最简单的 FastAPI 应用，五行代码搞定一个 API：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_root</span>():</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello, FastAPI!&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>保存为 <code>app.py</code>，然后运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uvicorn app:app --reload</span><br></pre></td></tr></table></figure>
+
+<p>访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/">http://127.0.0.1:8000</a>，页面会显示：<code>{&quot;message&quot;: &quot;Hello, FastAPI!&quot;}</code>。</p>
+<p>这段代码里几个重点：</p>
+<ul>
+<li><code>FastAPI()</code> 是整个应用的“老大哥”，所有路由都挂它上面。</li>
+<li><code>@app.get(&quot;/&quot;)</code> 是个装饰器，定义了一个 HTTP GET 方法，路径是 <code>/</code>。</li>
+<li>函数 <code>read_root</code> 返回了一个 JSON 响应。</li>
+</ul>
+<p>是不是简单到不像话？这就是 FastAPI 的日常。</p>
+<hr>
+<h2 id="路径参数与类型验证"><a href="#路径参数与类型验证" class="headerlink" title="路径参数与类型验证"></a><strong>路径参数与类型验证</strong></h2><p>FastAPI 的厉害之处是直接把 Python 的类型系统用到了 API 的参数上，代码写得优雅，用户也不迷糊。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&#123;item_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_item</span>(<span class="params">item_id: <span class="built_in">int</span>, q: <span class="built_in">str</span> = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;item_id&quot;</span>: item_id, <span class="string">&quot;query&quot;</span>: q&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问 <code>http://127.0.0.1:8000/items/42?q=hello</code>，结果是：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;item_id&quot;</span><span class="punctuation">:</span> <span class="number">42</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>几点注意：</p>
+<ul>
+<li><code>item_id</code> 自动推断为整数类型，如果你传了个字符串过去，它会直接抛 422 错误，API 完整性直接拉满。</li>
+<li><code>q</code> 是可选参数（默认值为 <code>None</code>），有就显示，没有也不会炸。</li>
+</ul>
+<p>温馨提示：FastAPI 的错误提示非常清楚，省了很多 debug 的功夫。</p>
+<hr>
+<h2 id="自动生成文档，开发者的“偷懒神器”"><a href="#自动生成文档，开发者的“偷懒神器”" class="headerlink" title="自动生成文档，开发者的“偷懒神器”"></a><strong>自动生成文档，开发者的“偷懒神器”</strong></h2><p>只要你启动了服务，FastAPI 自动帮你生成两种文档接口：</p>
+<ul>
+<li><strong>Swagger UI</strong>: <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/docs">http://127.0.0.1:8000/docs</a></li>
+<li><strong>ReDoc</strong>: <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/redoc">http://127.0.0.1:8000/redoc</a></li>
+</ul>
+<p>无需额外配置，直接生成漂亮的交互式文档，接口调用、调试全搞定。别的框架呢？光配个 Swagger 都能让人头秃。</p>
+<hr>
+<h2 id="请求体和数据验证"><a href="#请求体和数据验证" class="headerlink" title="请求体和数据验证"></a><strong>请求体和数据验证</strong></h2><p>除了路径参数，POST 请求的请求体也是 FastAPI 的强项，它用的是 Pydantic 数据模型，既能定义数据结构，还能自动验证。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Item</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    name: <span class="built_in">str</span></span><br><span class="line">    description: <span class="built_in">str</span> = <span class="literal">None</span></span><br><span class="line">    price: <span class="built_in">float</span></span><br><span class="line">    tax: <span class="built_in">float</span> = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.post(<span class="params"><span class="string">&quot;/items/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_item</span>(<span class="params">item: Item</span>):</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;item&quot;</span>: item&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/docs%EF%BC%8C%E4%BD%A0%E4%BC%9A%E5%8F%91%E7%8E%B0">http://127.0.0.1:8000/docs，你会发现</a> POST 请求的 JSON 结构已经生成了，试着发送以下数据：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Apple&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;A juicy fruit&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="number">1.2</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;tax&quot;</span><span class="punctuation">:</span> <span class="number">0.1</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>返回结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;item&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Apple&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;A juicy fruit&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="number">1.2</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;tax&quot;</span><span class="punctuation">:</span> <span class="number">0.1</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>温馨提示：Pydantic 会自动验证数据类型，传错类型立马报错，帮你挡掉各种奇奇怪怪的请求。</p>
+<hr>
+<h2 id="异步支持，性能加速器"><a href="#异步支持，性能加速器" class="headerlink" title="异步支持，性能加速器"></a><strong>异步支持，性能加速器</strong></h2><p>FastAPI 是天生的异步支持，用 <code>async def</code> 就能轻松写出非阻塞的接口。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/delayed&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">delayed_response</span>():</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;This is delayed&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个接口会延迟 2 秒返回。对于需要处理大量 IO 的应用，比如和数据库频繁交互的场景，异步的性能提升非常显著。</p>
+<p>温馨提示：如果你写的逻辑是纯 CPU 密集型任务，比如处理大数据，异步可能帮不上忙，得换多线程或者其他方式。</p>
+<hr>
+<h2 id="部署也很简单"><a href="#部署也很简单" class="headerlink" title="部署也很简单"></a><strong>部署也很简单</strong></h2><p>开发完 API，部署是绕不开的话题。FastAPI 推荐的部署方式是用 <strong>Uvicorn</strong> 搭配 <strong>Gunicorn</strong>。</p>
+<p>以下是一种简单的部署方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gunicorn -k uvicorn.workers.UvicornWorker app:app -w 4 -b 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
+
+<p>这里 <code>-w 4</code> 表示使用 4 个 worker，具体数量可以根据你的 CPU 核心数调整。</p>
+<hr>
+<h2 id="常见的坑"><a href="#常见的坑" class="headerlink" title="常见的坑"></a><strong>常见的坑</strong></h2><ol>
+<li><strong>路径参数和查询参数搞混</strong><br><code>/items/{id}</code> 和 <code>?id=42</code> 是两种不同的传参方式，一个是路径参数，一个是查询参数，记得区分。</li>
+<li><strong>异步代码里的同步操作</strong><br>如果你在 <code>async def</code> 里用了同步的数据库查询，性能还不如老老实实写同步代码。</li>
+<li><strong>缺少数据验证</strong><br>别偷懒，Pydantic 模型不仅优雅，还能帮你挡掉绝大部分的奇葩请求。</li>
+</ol>
+<hr>
+<p><strong>这就是 FastAPI 的大致使用方式了！它简单、优雅，又不缺性能，是构建现代 Web API 的利器。用它写代码，就像在跑一辆性能超强的小跑车，开起来特别顺手。去试试吧！</strong></p>
+<h2 id="彩蛋时间"><a href="#彩蛋时间" class="headerlink" title="彩蛋时间"></a>彩蛋时间</h2><p>走过路过不要错过，为大家准备了一份pycharm破解工具，感兴趣的朋友可以看看哈：<a target="_blank" rel="noopener" href="http://codeflyer.esparks.cn/archives/jetbrainsquanjiatongpojie">最新pycharm破解</a></p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/polars.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">25</div>
+                    <div class="trm-cover-month">2024/11</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/polars.html" class="trm-anima-link">
+                    Polars，一款闪电般快速的 Python 数据库利器！
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/11/25</li>
+                <li>20:06</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/dask.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">25</div>
+                    <div class="trm-cover-month">2024/11</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/dask.html" class="trm-anima-link">
+                    Dask，大规模数据处理，Python 也可以超强！
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/11/25</li>
+                <li>19:50</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v8.1.1
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.6
+            </span>
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.6"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.6"></script>
+
+<!-- CDN --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>

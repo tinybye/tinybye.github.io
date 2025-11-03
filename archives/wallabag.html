@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="上网冲浪的时候，经常能看到一些好文章和有用的资料，随手就放到收藏夹里了。但是放到收藏夹里的网页链接要么吃灰，要么很难找到，于是就变成了收藏等于“看过”。这可不是个好习惯，如何才能保证自己能够看完收藏的文章，而且也能随时的从收藏的文章里搜索自己想要的信息呢？为你隆重推荐这个开源项目——wallabag。 项目简介Wallabag 是一个用于保存和组织网络内容的自托管应用程序。它允许用户保存文章、新闻">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超好用的网页收录工具，和我一起打造属于自己的资料库吧！">
+<meta property="og:url" content="https://blog.anzai.fun/archives/wallabag.html">
+<meta property="og:site_name" content="安仔的百宝箱">
+<meta property="og:description" content="上网冲浪的时候，经常能看到一些好文章和有用的资料，随手就放到收藏夹里了。但是放到收藏夹里的网页链接要么吃灰，要么很难找到，于是就变成了收藏等于“看过”。这可不是个好习惯，如何才能保证自己能够看完收藏的文章，而且也能随时的从收藏的文章里搜索自己想要的信息呢？为你隆重推荐这个开源项目——wallabag。 项目简介Wallabag 是一个用于保存和组织网络内容的自托管应用程序。它允许用户保存文章、新闻">
+<meta property="og:locale">
+<meta property="og:image" content="https://blog.anzai.fun/img/404.jpg">
+<meta property="og:image" content="https://blog.anzai.fun/img/404.jpg">
+<meta property="og:image" content="https://blog.anzai.fun/img/404.jpg">
+<meta property="og:image" content="https://blog.anzai.fun/img/404.jpg">
+<meta property="og:image" content="https://blog.anzai.fun/img/404.jpg">
+<meta property="og:image" content="https://blog.anzai.fun/img/404.jpg">
+<meta property="article:published_time" content="2024-10-26T11:50:59.083Z">
+<meta property="article:modified_time" content="2024-10-26T11:50:59.083Z">
+<meta property="article:author" content="安仔">
+<meta property="article:tag" content="夸克网盘">
+<meta property="article:tag" content="电影">
+<meta property="article:tag" content="电视剧">
+<meta property="article:tag" content="百度网盘">
+<meta property="article:tag" content="英语四六级">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.anzai.fun/img/404.jpg">
+
+    <meta name="keywords" content="电影,电视剧,夸克网盘,百度网盘,英语四六级">
+
+
+<title >超好用的网页收录工具，和我一起打造属于自己的资料库吧！</title>
+
+<!-- Favicon -->
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.2.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"blog.anzai.fun","author":"安仔","root":"/","typed_text":null,"theme_version":"2.2.6","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/宝箱.png","icon16":"/img/宝箱.png","icon32":"/img/宝箱.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-10-26 19:50:59"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<!-- hexo injector head_end start --><meta name="baidu-site-verification" content="codeva-t7nonQvebw" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/%E5%AE%9D%E7%AE%B1.png">
+    
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    主页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    文章列表
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                    文章分类
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                            资源分享
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            超好用的网页收录工具，和我一起打造属于自己的资料库吧！
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        archives
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/anzai.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        安仔
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                添加微信获取更多资源:
+            </div>
+            <div class="trm-label trm-label-light">
+                anzaiyes
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            10/26
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            19:50
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            安仔
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>上网冲浪的时候，经常能看到一些好文章和有用的资料，随手就放到收藏夹里了。但是放到收藏夹里的网页链接要么吃灰，要么很难找到，于是就变成了收藏等于“看过”。这可不是个好习惯，如何才能保证自己能够看完收藏的文章，而且也能随时的从收藏的文章里搜索自己想要的信息呢？为你隆重推荐这个开源项目——wallabag。</p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>Wallabag 是一个用于保存和组织网络内容的自托管应用程序。它允许用户保存文章、新闻、博客帖子等网页内容，并在需要时进行阅读。Wallabag 支持多平台，可以让用户随时随地的保存看到的文章，并支持打标签、分类、搜索。借助 Wallabag，我们可以还打造自己的资料库，简直是泰酷辣！</p>
+<h2 id="项目安装"><a href="#项目安装" class="headerlink" title="项目安装"></a>项目安装</h2><p>Wallabag 是提供在线网站的，用户可以在 Wallabag 的官网注册一个账号在线使用。当然，作为一个开源软件，他也支持用户自己独立部署使用。如果想要让自己的信息更可控，并且保证网速，可以选择在本地或者自己的服务器上部署 Wallabag 服务端。</p>
+<p>Wallabag 支持 docker 部署，并且支持多种数据库，包括 SQLite、MariaDB、MySQL、PostgreSQL、Redis。这里以 docker 部署为例。命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 -e &quot;SYMFONY__ENV__DOMAIN_NAME=http://localhost&quot; wallabag/wallabag</span><br></pre></td></tr></table></figure>
+
+<p>当然，端口的映射可以自行修改哈，为了偷懒，直接用默认的 80 端口了。容器启动后，访问<code>http://localhost</code>即可进入首页。你可以用管理员账号 wallabag（密码也是 wallabag）登录，也可以自己注册新的账号。</p>
+<h2 id="项目使用"><a href="#项目使用" class="headerlink" title="项目使用"></a>项目使用</h2><h3 id="收录新文章"><a href="#收录新文章" class="headerlink" title="收录新文章"></a>收录新文章</h3><p>我们可以点击首页右上角的➕，输入你要收录的文章地址，按回车键，来保存我们的第一篇文章吧～</p>
+<p><img src="http://img.esparks.cn/img/20230615212643_4fb1b0ac69fc56b5b640fe57ce9711c0.png"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>当然了，你肯定会说，我收录文章还要手动输入，也太麻烦了吧！当然是有更方便的方法啦，我们可以通过浏览器插件快速收录文章。</p>
+<h3 id="使用插件收录"><a href="#使用插件收录" class="headerlink" title="使用插件收录"></a>使用插件收录</h3><p>以 Chrome 浏览器为例，首先需要安装 Wallabag 的 Chrome 插件，地址如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="comment">//chrome.google.com/webstore/detail/wallabagger/gbmgphmejlcoihgedabhgjdkcahacjlj</span></span><br></pre></td></tr></table></figure>
+
+<p>之后回到 Wallabag 首页，点击右上角的用户头像，选择“API 客户端管理”，在新的页面点击“创建一个新的客户端”按钮，如图所示：</p>
+<p><img src="http://img.esparks.cn/img/20230615212643_6bf872c0c013bd1a95ac341f9d86c1d6.png"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>在新的页面输入客户端名称，点击“创建客户端”按钮，可以生成一个新的客户端。这个客户端是用来干啥的呢？客户端会提供 id 和秘钥，用于 Wallabag 插件的参数配置。</p>
+<p>回到 Wallabag 插件的配置页面，配置好客户端 ID、客户端秘钥、用户账号、用户密码，之后点击获取 token 验证是否生效。</p>
+<p><img src="http://img.esparks.cn/img/20230615212643_6adbbfa5299ce3dedefe0130ad2f0c24.png"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>配置好之后，打开我们想要收录的文章页面，点击插件按钮，就可以收录文章啦！</p>
+<p><img src="http://img.esparks.cn/img/20230615212643_51938f46528bd81fd67efe6a4bdf4dcf.png"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>而且你还可以选择标签，方便文章归类。</p>
+<h3 id="界面操作"><a href="#界面操作" class="headerlink" title="界面操作"></a>界面操作</h3><p>说完文章收录，我们回到首页来看看应该如何合理的使用 Wallabag。</p>
+<p>首页可以看到我们之前收录过的文章，如图所示。</p>
+<p><img src="http://img.esparks.cn/img/20230615212643_1de4ba302f4506eb5f2bf4b74a05544e.png"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>右上角的图标分别是：</p>
+<ul>
+<li>添加文章</li>
+<li>搜索：很棒的功能，可以方便快捷的定位到关键词</li>
+<li>随机跳转：不知道先看哪篇文章时，点这里</li>
+<li>筛选：按照条件筛选你想要的文章</li>
+<li>导出：文章导出成各种格式</li>
+</ul>
+<p>左侧是菜单栏，归类用。页面主体是文章卡片，底部的图标从左到右依次是：预计阅读时间、收录时间、查看同域名下的其他文章、标记为已读、收藏、删除文章。</p>
+<p>点开一篇文章后，可以看到保存的是格式最简洁的文章内容，右侧依旧是一些选项，这里就不赘述啦。</p>
+<p><img src="http://img.esparks.cn/img/20230615212643_9183d3be77a2e802d53eb9f0fd539f94.png"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总的来说，Wallabag 不仅是一款方便易用的网页内容收录工具，其拥有的标签功能、强大的筛选搜索功能，也可以让我们基于此打造自己的资料库，并且其自带的已读功能也会纠正我们只收藏不阅读的坏习惯。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">项目地址：https:<span class="comment">//github.com/wallabag/wallabag</span></span><br><span class="line">官方地址：wallabag.org</span><br><span class="line">docker hub地址：https:<span class="comment">//hub.docker.com/r/wallabag/wallabag/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="彩蛋时间"><a href="#彩蛋时间" class="headerlink" title="彩蛋时间"></a>彩蛋时间</h2><p>走过路过不要错过，为大家准备了一份idea破解工具，感兴趣的朋友可以看看哈：<a target="_blank" rel="noopener" href="http://codeflyer.esparks.cn/archives/jetbrainsquanjiatongpojie">最新idea破解</a></p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/fishupgrade.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">26</div>
+                    <div class="trm-cover-month">2024/10</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" #.">
+                    未分类
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/fishupgrade.html" class="trm-anima-link">
+                    别羡慕Win10的摸鱼应用，Mac也有摸鱼神器！
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/10/26</li>
+                <li>19:52</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/how2.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">25</div>
+                    <div class="trm-cover-month">2024/09</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                    开源项目
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/how2.html" class="trm-anima-link">
+                    编程遇到问题了？一个命令让 AI 解决你的困惑！
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/09/25</li>
+                <li>22:32</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v8.1.1
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.6
+            </span>
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.6"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.6"></script>
+
+<!-- CDN --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>

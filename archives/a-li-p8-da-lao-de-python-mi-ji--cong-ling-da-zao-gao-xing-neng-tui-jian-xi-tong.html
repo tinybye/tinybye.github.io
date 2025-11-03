@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="简单说，推荐系统就是根据用户的喜好，推荐他们感兴趣的东西。你刷短视频、逛电商平台、看新闻文章，这背后都有推荐系统在默默给你“投喂”内容。   咱们今天就一步步用Python搭建一个高性能的推荐系统，搞清楚推荐系统的基本架构和核心技术点。没准儿看完你就能理解阿里P8大佬平时是怎么玩儿的了。    1. 数据处理：推荐系统的地基推荐系统要工作，必须得有数据。用户看过啥？喜欢啥？买过啥？这些数据是基础。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里P8大佬的Python秘籍：从零打造高性能推荐系统">
+<meta property="og:url" content="https://blog.anzai.fun/archives/a-li-p8-da-lao-de-python-mi-ji--cong-ling-da-zao-gao-xing-neng-tui-jian-xi-tong.html">
+<meta property="og:site_name" content="安仔的百宝箱">
+<meta property="og:description" content="简单说，推荐系统就是根据用户的喜好，推荐他们感兴趣的东西。你刷短视频、逛电商平台、看新闻文章，这背后都有推荐系统在默默给你“投喂”内容。   咱们今天就一步步用Python搭建一个高性能的推荐系统，搞清楚推荐系统的基本架构和核心技术点。没准儿看完你就能理解阿里P8大佬平时是怎么玩儿的了。    1. 数据处理：推荐系统的地基推荐系统要工作，必须得有数据。用户看过啥？喜欢啥？买过啥？这些数据是基础。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-12-22T05:20:48.430Z">
+<meta property="article:modified_time" content="2024-12-22T05:20:48.430Z">
+<meta property="article:author" content="安仔">
+<meta property="article:tag" content="夸克网盘">
+<meta property="article:tag" content="电影">
+<meta property="article:tag" content="电视剧">
+<meta property="article:tag" content="百度网盘">
+<meta property="article:tag" content="英语四六级">
+<meta name="twitter:card" content="summary">
+
+    <meta name="keywords" content="电影,电视剧,夸克网盘,百度网盘,英语四六级">
+
+
+<title >阿里P8大佬的Python秘籍：从零打造高性能推荐系统</title>
+
+<!-- Favicon -->
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.2.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"blog.anzai.fun","author":"安仔","root":"/","typed_text":null,"theme_version":"2.2.6","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/宝箱.png","icon16":"/img/宝箱.png","icon32":"/img/宝箱.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-12-22 13:20:48"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<!-- hexo injector head_end start --><meta name="baidu-site-verification" content="codeva-t7nonQvebw" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/%E5%AE%9D%E7%AE%B1.png">
+    
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    主页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    文章列表
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                    文章分类
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                            资源分享
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            阿里P8大佬的Python秘籍：从零打造高性能推荐系统
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        archives
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/anzai.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        安仔
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                添加微信获取更多资源:
+            </div>
+            <div class="trm-label trm-label-light">
+                anzaiyes
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            12/22
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            13:20
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            安仔
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>简单说，<strong>推荐系统</strong>就是根据用户的喜好，推荐他们感兴趣的东西。你刷短视频、逛电商平台、看新闻文章，这背后都有推荐系统在默默给你“投喂”内容。  </p>
+<p>咱们今天就一步步用Python搭建一个高性能的推荐系统，搞清楚推荐系统的基本架构和核心技术点。没准儿看完你就能理解阿里P8大佬平时是怎么玩儿的了。  </p>
+<hr>
+<h2 id="1-数据处理：推荐系统的地基"><a href="#1-数据处理：推荐系统的地基" class="headerlink" title="1. 数据处理：推荐系统的地基"></a><strong>1. 数据处理：推荐系统的地基</strong></h2><p>推荐系统要工作，必须得有数据。用户看过啥？喜欢啥？买过啥？这些数据是基础。我们先来看看如何用Python处理数据。  </p>
+<h3 id="数据加载与清洗"><a href="#数据加载与清洗" class="headerlink" title="数据加载与清洗"></a><strong>数据加载与清洗</strong></h3><p>用Pandas这个“数据处理神器”就够了。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取用户行为数据</span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;user_behavior.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看数据的前几行</span></span><br><span class="line"><span class="built_in">print</span>(data.head())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据清洗，去掉空值</span></span><br><span class="line">data = data.dropna()</span><br></pre></td></tr></table></figure>
+<p><strong>小提示</strong>：Pandas的数据清洗非常灵活，但注意数据量大的时候要用<code>chunksize</code>分块读取，避免内存炸裂。  </p>
+<hr>
+<h2 id="2-推荐算法：选择最合适的“套路”"><a href="#2-推荐算法：选择最合适的“套路”" class="headerlink" title="2. 推荐算法：选择最合适的“套路”"></a><strong>2. 推荐算法：选择最合适的“套路”</strong></h2><p>推荐系统算法一般分两类：<strong>基于内容的推荐</strong> 和 <strong>基于协同过滤的推荐</strong>。  </p>
+<h3 id="基于内容的推荐"><a href="#基于内容的推荐" class="headerlink" title="基于内容的推荐"></a><strong>基于内容的推荐</strong></h3><p>简单理解就是：<strong>物以类聚</strong>。推荐和你喜欢的东西类似的内容。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics.pairwise <span class="keyword">import</span> cosine_similarity</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设有物品的数据集，包含描述信息</span></span><br><span class="line">items = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&#x27;item_id&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    <span class="string">&#x27;description&#x27;</span>: [<span class="string">&#x27;动作冒险游戏&#x27;</span>, <span class="string">&#x27;休闲益智游戏&#x27;</span>, <span class="string">&#x27;冒险解谜游戏&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 特征提取：用TF-IDF向量化描述信息</span></span><br><span class="line">tfidf = TfidfVectorizer()</span><br><span class="line">item_matrix = tfidf.fit_transform(items[<span class="string">&#x27;description&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算物品之间的相似度</span></span><br><span class="line">cosine_sim = cosine_similarity(item_matrix)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 推荐相似的物品</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;物品之间的相似度矩阵：&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(cosine_sim)</span><br></pre></td></tr></table></figure>
+<p>上面代码就简单实现了物品的相似推荐。用户喜欢“动作冒险”，咱们推荐“冒险解谜”，这就是基于内容的套路。  </p>
+<hr>
+<h3 id="基于协同过滤的推荐"><a href="#基于协同过滤的推荐" class="headerlink" title="基于协同过滤的推荐"></a><strong>基于协同过滤的推荐</strong></h3><p>协同过滤分两种：<strong>基于用户</strong> 和 <strong>基于物品</strong>。今天咱们看最简单的<strong>物品协同过滤</strong>，也叫<strong>用户-物品打分矩阵</strong>。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> surprise <span class="keyword">import</span> Dataset, SVD</span><br><span class="line"><span class="keyword">from</span> surprise.model_selection <span class="keyword">import</span> cross_validate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载数据集</span></span><br><span class="line">data = Dataset.load_builtin(<span class="string">&#x27;ml-100k&#x27;</span>)  <span class="comment"># 内置的电影评分数据集</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用SVD算法进行矩阵分解</span></span><br><span class="line">algo = SVD()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 交叉验证，看看模型效果</span></span><br><span class="line">cross_validate(algo, data, cv=<span class="number">5</span>, verbose=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="运行结果说明"><a href="#运行结果说明" class="headerlink" title="运行结果说明"></a><strong>运行结果说明</strong></h3><p>SVD（奇异值分解）是一种经典的矩阵分解算法，这里用于填补用户-物品评分矩阵中的“空白”。比如，用户A没评分的电影，就通过矩阵分解估算出评分，进而推荐给他。  </p>
+<hr>
+<h2 id="3-性能优化：推荐系统也要飞起来！"><a href="#3-性能优化：推荐系统也要飞起来！" class="headerlink" title="3. 性能优化：推荐系统也要飞起来！"></a><strong>3. 性能优化：推荐系统也要飞起来！</strong></h2><p>推荐系统一旦上线，面对成千上万的数据，性能就是最大的问题了。  </p>
+<h3 id="多线程与多进程"><a href="#多线程与多进程" class="headerlink" title="多线程与多进程"></a><strong>多线程与多进程</strong></h3><p>Python默认的单线程性能一般，但用<code>concurrent.futures</code>模块可以搞定多线程或多进程。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> concurrent.futures</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设这是耗时的推荐任务</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recommend</span>(<span class="params">user_id</span>):</span><br><span class="line">    time.sleep(<span class="number">1</span>)  <span class="comment"># 模拟计算时间</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;为用户<span class="subst">&#123;user_id&#125;</span>推荐内容&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 并发执行推荐任务</span></span><br><span class="line">user_ids = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">with</span> concurrent.futures.ThreadPoolExecutor() <span class="keyword">as</span> executor:</span><br><span class="line">    results = executor.<span class="built_in">map</span>(recommend, user_ids)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> result <span class="keyword">in</span> results:</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+<p><strong>小提示</strong>：多线程适合I&#x2F;O密集型任务；多进程则适合CPU密集型任务，比如矩阵计算。  </p>
+<hr>
+<h3 id="利用缓存：减少重复计算"><a href="#利用缓存：减少重复计算" class="headerlink" title="利用缓存：减少重复计算"></a><strong>利用缓存：减少重复计算</strong></h3><p>重复的计算浪费性能。解决办法？用<strong>缓存</strong>！Python的<code>functools.lru_cache</code>简单高效。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> lru_cache</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设这是推荐的核心计算函数</span></span><br><span class="line"><span class="meta">@lru_cache(<span class="params">maxsize=<span class="number">128</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_recommendation</span>(<span class="params">user_id</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;正在计算用户<span class="subst">&#123;user_id&#125;</span>的推荐结果...&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;推荐结果 for 用户<span class="subst">&#123;user_id&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 多次调用</span></span><br><span class="line"><span class="built_in">print</span>(compute_recommendation(<span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(compute_recommendation(<span class="number">1</span>))  <span class="comment"># 这个直接从缓存返回</span></span><br></pre></td></tr></table></figure>
+<p>第二次调用<code>compute_recommendation(1)</code>，直接从缓存拿结果，快得飞起！  </p>
+<hr>
+<h2 id="4-模型上线：让推荐系统真正跑起来"><a href="#4-模型上线：让推荐系统真正跑起来" class="headerlink" title="4. 模型上线：让推荐系统真正跑起来"></a><strong>4. 模型上线：让推荐系统真正跑起来</strong></h2><p>推荐系统开发好了，得部署上线。推荐两个工具：<strong>Flask</strong> 和 <strong>FastAPI</strong>。  </p>
+<h3 id="用Flask简单搭建API服务"><a href="#用Flask简单搭建API服务" class="headerlink" title="用Flask简单搭建API服务"></a><strong>用Flask简单搭建API服务</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简单的推荐接口</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/recommend&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recommend</span>():</span><br><span class="line">    user_id = request.args.get(<span class="string">&#x27;user_id&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;user_id&quot;</span>: user_id, <span class="string">&quot;recommendations&quot;</span>: [<span class="string">&quot;商品A&quot;</span>, <span class="string">&quot;商品B&quot;</span>, <span class="string">&quot;商品C&quot;</span>]&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>运行这段代码，然后打开浏览器访问<code>http://127.0.0.1:5000/recommend?user_id=123</code>，就能看到推荐结果。  </p>
+<p><strong>温馨提示</strong>：线上环境一定要用生产级别的服务器，比如Gunicorn。  </p>
+<hr>
+<h2 id="5-实际应用：推荐系统的优化和迭代"><a href="#5-实际应用：推荐系统的优化和迭代" class="headerlink" title="5. 实际应用：推荐系统的优化和迭代"></a><strong>5. 实际应用：推荐系统的优化和迭代</strong></h2><p>现实中的推荐系统，不能一成不变，需要不断优化，比如：  </p>
+<ul>
+<li><strong>实时推荐</strong>：用户操作后立即更新推荐结果。  </li>
+<li><strong>混合推荐</strong>：结合多种推荐算法，效果更佳。  </li>
+<li><strong>A&#x2F;B测试</strong>：上线不同的推荐模型，看看哪个效果好。</li>
+</ul>
+<hr>
+<h2 id="小结一下今天的内容："><a href="#小结一下今天的内容：" class="headerlink" title="小结一下今天的内容："></a>小结一下今天的内容：</h2><ul>
+<li>用Pandas处理数据，为推荐系统打基础。  </li>
+<li>学会了两种常见推荐算法：<strong>基于内容</strong> 和 <strong>基于协同过滤</strong>。  </li>
+<li>提高推荐系统性能：多线程、多进程、缓存优化。  </li>
+<li>最后用Flask让模型上线，跑起来！</li>
+</ul>
+<p>掌握这些技巧，推荐系统的路，你已经走了一大半了！剩下的，就是不断练习，撸起袖子多写代码，逐步优化和升级你的推荐系统。</p>
+<h2 id="彩蛋时间"><a href="#彩蛋时间" class="headerlink" title="彩蛋时间"></a>彩蛋时间</h2><p>走过路过不要错过，为大家准备了一份pycharm破解工具，感兴趣的朋友可以看看哈：<a target="_blank" rel="noopener" href="http://codeflyer.esparks.cn/archives/jetbrainsquanjiatongpojie">最新pycharm破解</a></p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/a-li-p7-da-shen-jiao-ni-yong-python-kai-fa-zi-ji-de-pa-chong-kuang-jia.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">22</div>
+                    <div class="trm-cover-month">2024/12</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/a-li-p7-da-shen-jiao-ni-yong-python-kai-fa-zi-ji-de-pa-chong-kuang-jia.html" class="trm-anima-link">
+                    阿里P7大神教你用Python开发自己的爬虫框架
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/12/22</li>
+                <li>13:21</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/yong-python-gao-ding-shu-ju-qing-xi--jiu-zhe-me-jian-dan.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">22</div>
+                    <div class="trm-cover-month">2024/12</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/yong-python-gao-ding-shu-ju-qing-xi--jiu-zhe-me-jian-dan.html" class="trm-anima-link">
+                    用Python搞定数据清洗，就这么简单！
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/12/22</li>
+                <li>13:19</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v8.1.1
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.6
+            </span>
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.6"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.6"></script>
+
+<!-- CDN --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="前言走过路过不要错过，为大家准备了一份pycharm破解工具，感兴趣的朋友可以看看哈：最新pycharm破解  在开始前，简单聊下什么是RESTful API。简而言之，RESTful API是一种基于HTTP协议设计的网络服务接口。它通过一组定义好的URL路径和HTTP方法（比如GET、POST、PUT、DELETE等）来操作服务器上的资源。在实际开发中，RESTful API几乎无处不在，比如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从阿里P8大牛到你：用Python构建RESTful API，轻松上手">
+<meta property="og:url" content="https://blog.anzai.fun/archives/cong-a-li-p8-da-niu-dao-ni-yong-python-gou-jian-restfulapi-qing-song-shang-shou.html">
+<meta property="og:site_name" content="安仔的百宝箱">
+<meta property="og:description" content="前言走过路过不要错过，为大家准备了一份pycharm破解工具，感兴趣的朋友可以看看哈：最新pycharm破解  在开始前，简单聊下什么是RESTful API。简而言之，RESTful API是一种基于HTTP协议设计的网络服务接口。它通过一组定义好的URL路径和HTTP方法（比如GET、POST、PUT、DELETE等）来操作服务器上的资源。在实际开发中，RESTful API几乎无处不在，比如">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-12-22T05:27:58.268Z">
+<meta property="article:modified_time" content="2024-12-22T05:27:58.268Z">
+<meta property="article:author" content="安仔">
+<meta property="article:tag" content="夸克网盘">
+<meta property="article:tag" content="电影">
+<meta property="article:tag" content="电视剧">
+<meta property="article:tag" content="百度网盘">
+<meta property="article:tag" content="英语四六级">
+<meta name="twitter:card" content="summary">
+
+    <meta name="keywords" content="电影,电视剧,夸克网盘,百度网盘,英语四六级">
+
+
+<title >从阿里P8大牛到你：用Python构建RESTful API，轻松上手</title>
+
+<!-- Favicon -->
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.2.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"blog.anzai.fun","author":"安仔","root":"/","typed_text":null,"theme_version":"2.2.6","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/宝箱.png","icon16":"/img/宝箱.png","icon32":"/img/宝箱.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-12-22 13:27:58"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<!-- hexo injector head_end start --><meta name="baidu-site-verification" content="codeva-t7nonQvebw" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/%E5%AE%9D%E7%AE%B1.png">
+    
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    主页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    文章列表
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                    文章分类
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                            资源分享
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            从阿里P8大牛到你：用Python构建RESTful API，轻松上手
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        archives
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/anzai.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        安仔
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                添加微信获取更多资源:
+            </div>
+            <div class="trm-label trm-label-light">
+                anzaiyes
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            12/22
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            13:27
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            安仔
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>走过路过不要错过，为大家准备了一份pycharm破解工具，感兴趣的朋友可以看看哈：<a target="_blank" rel="noopener" href="http://codeflyer.esparks.cn/archives/jetbrainsquanjiatongpojie">最新pycharm破解</a></p>
+<hr>
+<p>在开始前，简单聊下什么是RESTful API。简而言之，RESTful API是一种基于HTTP协议设计的网络服务接口。它通过一组定义好的<strong>URL</strong>路径和<strong>HTTP方法</strong>（比如GET、POST、PUT、DELETE等）来操作服务器上的资源。在实际开发中，RESTful API几乎无处不在，比如你用的各种App、网站后台，或者与前端交互的API接口，基本上都在用RESTful。</p>
+<p>对于开发者来说，构建RESTful API可以让前端和后端分离，前后端的开发更灵活。而在Python中，最常用来构建RESTful API的框架就是<strong>Flask</strong>和<strong>Django REST Framework</strong>。</p>
+<p>今天，我们就来用Python的Flask框架实现一个简单的RESTful API，带你跨越技术壁垒，快速上手。</p>
+<hr>
+<h3 id="Flask是什么？为什么选它？"><a href="#Flask是什么？为什么选它？" class="headerlink" title="Flask是什么？为什么选它？"></a>Flask是什么？为什么选它？</h3><p>Flask是一个轻量级的Python Web框架，适合用来构建小型到中型的应用，特别是开发RESTful API时非常流行。相比Django，Flask更加简洁灵活，不会有太多复杂的配置。如果你是Python新手或者想快速构建一个API，Flask就是一个好选择。</p>
+<p>温馨提示：Flask并不强制你遵循某些规定（如ORM、认证等），所以你可以更自由地设计应用结构，但也意味着你要自己决定如何做。</p>
+<hr>
+<h3 id="搭建Flask环境"><a href="#搭建Flask环境" class="headerlink" title="搭建Flask环境"></a>搭建Flask环境</h3><ol>
+<li><p><strong>安装Flask</strong><br>打开终端（或命令行），输入以下命令来安装Flask：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install Flask</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建Flask应用</strong><br>在你选择的目录下创建一个Python文件（比如<code>app.py</code>），并编写以下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, jsonify</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/api&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>():</span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello, World!&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这段代码做了什么？  </p>
+<ul>
+<li>创建了一个Flask应用（<code>Flask(__name__)</code>）</li>
+<li>定义了一个路由<code>/api</code>，当你访问<code>GET</code>请求时，会返回一个JSON格式的响应：<code>{&quot;message&quot;: &quot;Hello, World!&quot;}</code></li>
+<li>最后，启动Flask服务器。</li>
+</ul>
+</li>
+<li><p><strong>运行应用</strong><br>在命令行输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python app.py</span><br></pre></td></tr></table></figure>
+
+<p>你应该会看到类似下面的信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<p>访问<code>http://127.0.0.1:5000/api</code>，你会看到浏览器返回如下JSON：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Hello, World!&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="设计RESTful-API：GET、POST、PUT、DELETE"><a href="#设计RESTful-API：GET、POST、PUT、DELETE" class="headerlink" title="设计RESTful API：GET、POST、PUT、DELETE"></a>设计RESTful API：GET、POST、PUT、DELETE</h3><p>现在我们来设计一个简单的API，支持四种HTTP方法：GET、POST、PUT、DELETE。</p>
+<ol>
+<li><p><strong>GET方法</strong><br>用于获取资源，通常是查询数据。比如，获取某个用户的详细信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/api/user/&lt;int:id&gt;&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_user</span>(<span class="params"><span class="built_in">id</span></span>):</span><br><span class="line">    <span class="comment"># 假设有一个字典存储用户数据</span></span><br><span class="line">    users = &#123;<span class="number">1</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">25</span>&#125;, <span class="number">2</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Jerry&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">22</span>&#125;&#125;</span><br><span class="line">    user = users.get(<span class="built_in">id</span>)</span><br><span class="line">    <span class="keyword">if</span> user:</span><br><span class="line">        <span class="keyword">return</span> jsonify(user)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;error&quot;</span>: <span class="string">&quot;User not found&quot;</span>&#125;), <span class="number">404</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，<code>&lt;int:id&gt;</code>表示URL中的动态参数，Flask会自动将它转换为整数。你可以通过<code>users.get(id)</code>来获取对应用户的数据。</p>
+</li>
+<li><p><strong>POST方法</strong><br>用于创建资源，通常是向服务器发送数据。比如，用户提交注册表单。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/api/user&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_user</span>():</span><br><span class="line">    <span class="comment"># 假设我们通过JSON接收用户数据</span></span><br><span class="line">    <span class="keyword">from</span> flask <span class="keyword">import</span> request</span><br><span class="line">    data = request.get_json()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data <span class="keyword">or</span> <span class="string">&#x27;name&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> data <span class="keyword">or</span> <span class="string">&#x27;age&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> data:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;error&quot;</span>: <span class="string">&quot;Bad request&quot;</span>&#125;), <span class="number">400</span></span><br><span class="line">    </span><br><span class="line">    user = &#123;<span class="string">&quot;name&quot;</span>: data[<span class="string">&#x27;name&#x27;</span>], <span class="string">&quot;age&quot;</span>: data[<span class="string">&#x27;age&#x27;</span>]&#125;</span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;User created&quot;</span>, <span class="string">&quot;user&quot;</span>: user&#125;), <span class="number">201</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们使用<code>request.get_json()</code>获取请求体中的JSON数据。确保POST请求的body包含了我们需要的字段。</p>
+</li>
+<li><p><strong>PUT方法</strong><br>用于更新资源，通常是修改已有的数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/api/user/&lt;int:id&gt;&#x27;</span>, methods=[<span class="string">&#x27;PUT&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">update_user</span>(<span class="params"><span class="built_in">id</span></span>):</span><br><span class="line">    <span class="keyword">from</span> flask <span class="keyword">import</span> request</span><br><span class="line">    users = &#123;<span class="number">1</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">25</span>&#125;, <span class="number">2</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Jerry&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">22</span>&#125;&#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">id</span> <span class="keyword">not</span> <span class="keyword">in</span> users:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;error&quot;</span>: <span class="string">&quot;User not found&quot;</span>&#125;), <span class="number">404</span></span><br><span class="line"></span><br><span class="line">    data = request.get_json()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data <span class="keyword">or</span> <span class="string">&#x27;name&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> data <span class="keyword">or</span> <span class="string">&#x27;age&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> data:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;error&quot;</span>: <span class="string">&quot;Bad request&quot;</span>&#125;), <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    users[<span class="built_in">id</span>] = &#123;<span class="string">&quot;name&quot;</span>: data[<span class="string">&#x27;name&#x27;</span>], <span class="string">&quot;age&quot;</span>: data[<span class="string">&#x27;age&#x27;</span>]&#125;</span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;User updated&quot;</span>, <span class="string">&quot;user&quot;</span>: users[<span class="built_in">id</span>]&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们通过<code>PUT</code>方法来更新用户数据。你可以通过<code>request.get_json()</code>获取更新的字段。</p>
+</li>
+<li><p><strong>DELETE方法</strong><br>用于删除资源，比如删除一个用户。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/api/user/&lt;int:id&gt;&#x27;</span>, methods=[<span class="string">&#x27;DELETE&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_user</span>(<span class="params"><span class="built_in">id</span></span>):</span><br><span class="line">    users = &#123;<span class="number">1</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">25</span>&#125;, <span class="number">2</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Jerry&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">22</span>&#125;&#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">id</span> <span class="keyword">in</span> users:</span><br><span class="line">        <span class="keyword">del</span> users[<span class="built_in">id</span>]</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;User deleted&quot;</span>&#125;)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;error&quot;</span>: <span class="string">&quot;User not found&quot;</span>&#125;), <span class="number">404</span></span><br></pre></td></tr></table></figure>
+
+<p><code>DELETE</code>方法删除指定ID的用户。如果用户不存在，返回<code>404</code>错误。</p>
+</li>
+</ol>
+<hr>
+<h3 id="异常处理与错误响应"><a href="#异常处理与错误响应" class="headerlink" title="异常处理与错误响应"></a>异常处理与错误响应</h3><p>在构建RESTful API时，异常处理是非常重要的。通过适当的错误响应，可以让前端更清晰地知道发生了什么问题。比如，用户请求不存在的资源时，返回一个<strong>404 Not Found</strong>的状态码。</p>
+<p>Flask提供了一个<code>abort</code>函数，可以直接返回错误响应。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> abort</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/api/user/&lt;int:id&gt;&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_user</span>(<span class="params"><span class="built_in">id</span></span>):</span><br><span class="line">    users = &#123;<span class="number">1</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">25</span>&#125;, <span class="number">2</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Jerry&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">22</span>&#125;&#125;</span><br><span class="line">    user = users.get(<span class="built_in">id</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> user:</span><br><span class="line">        abort(<span class="number">404</span>, description=<span class="string">&quot;User not found&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> jsonify(user)</span><br></pre></td></tr></table></figure>
+
+<p>这里，<code>abort(404)</code>直接抛出一个404错误，Flask会自动返回404响应。</p>
+<hr>
+<h3 id="如何测试你的API？"><a href="#如何测试你的API？" class="headerlink" title="如何测试你的API？"></a>如何测试你的API？</h3><p>最简单的方式就是直接在浏览器中访问相应的URL，或者使用一些API测试工具，比如<strong>Postman</strong>，它可以帮助你更好地调试和测试API。</p>
+<hr>
+<p>这样，简单的RESTful API就搭建完成了！你学会了如何使用Flask来快速构建一个API，支持常见的HTTP方法（GET、POST、PUT、DELETE），并且了解了如何处理请求和响应。</p>
+<hr>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>今天我们用Python和Flask实现了一个简单的RESTful API，学会了如何：</p>
+<ul>
+<li>使用Flask创建应用和路由</li>
+<li>实现基本的GET、POST、PUT、DELETE操作</li>
+<li>做异常处理和错误响应</li>
+</ul>
+<p>下次如果你遇到需要构建API的需求，拿出Flask来用，轻松又高效！</p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/sun-qian-huang-jing-yu-shi-yan-dong-zhi-kua-ke-wang-pan-bai-du-wang-pan-xia-zai-lian-jie.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">25</div>
+                    <div class="trm-cover-month">2024/12</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/">
+                    资源分享
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/sun-qian-huang-jing-yu-shi-yan-dong-zhi-kua-ke-wang-pan-bai-du-wang-pan-xia-zai-lian-jie.html" class="trm-anima-link">
+                    孙千黄景瑜饰演冬至夸克网盘百度网盘下载链接
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/12/25</li>
+                <li>08:06</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/a-li-p8-da-lao-zhuan-fang-ta-shi-ru-he-yong-python-da-zao-gao-xiao-de-ri-zhi-fen-xi-xi-tong.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">22</div>
+                    <div class="trm-cover-month">2024/12</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/a-li-p8-da-lao-zhuan-fang-ta-shi-ru-he-yong-python-da-zao-gao-xiao-de-ri-zhi-fen-xi-xi-tong.html" class="trm-anima-link">
+                    阿里P8大佬专访：他是如何用Python打造高效的日志分析系统？
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/12/22</li>
+                <li>13:27</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v8.1.1
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.6
+            </span>
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.6"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.6"></script>
+
+<!-- CDN --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>

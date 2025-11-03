@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="网络请求是现代应用中常见的操作，但大量的请求往往会导致代码性能低下，尤其是在高并发环境下。你可能会发现，每一次请求都需要等待网络响应，可能还会因为同步阻塞而影响整体性能。今天，我将带你走进Python的高效网络请求处理，教你一些常见的技巧，帮助你提升代码性能，减少等待时间，让程序跑得更快，跑得更稳。 异步编程：让请求不再阻塞首先，讲到网络请求优化，异步编程必定是绕不开的话题。简单来说，异步编程让你">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里P8大神教你如何用Python高效处理网络请求，提升代码性能">
+<meta property="og:url" content="https://blog.anzai.fun/archives/a-li-p8-da-shen-jiao-ni-ru-he-yong-python-gao-xiao-chu-li-wang-luo-qing-qiu-ti-sheng-dai-ma-xing-neng.html">
+<meta property="og:site_name" content="安仔的百宝箱">
+<meta property="og:description" content="网络请求是现代应用中常见的操作，但大量的请求往往会导致代码性能低下，尤其是在高并发环境下。你可能会发现，每一次请求都需要等待网络响应，可能还会因为同步阻塞而影响整体性能。今天，我将带你走进Python的高效网络请求处理，教你一些常见的技巧，帮助你提升代码性能，减少等待时间，让程序跑得更快，跑得更稳。 异步编程：让请求不再阻塞首先，讲到网络请求优化，异步编程必定是绕不开的话题。简单来说，异步编程让你">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-12-22T05:22:44.265Z">
+<meta property="article:modified_time" content="2024-12-22T05:22:44.265Z">
+<meta property="article:author" content="安仔">
+<meta property="article:tag" content="夸克网盘">
+<meta property="article:tag" content="电影">
+<meta property="article:tag" content="电视剧">
+<meta property="article:tag" content="百度网盘">
+<meta property="article:tag" content="英语四六级">
+<meta name="twitter:card" content="summary">
+
+    <meta name="keywords" content="电影,电视剧,夸克网盘,百度网盘,英语四六级">
+
+
+<title >阿里P8大神教你如何用Python高效处理网络请求，提升代码性能</title>
+
+<!-- Favicon -->
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.2.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"blog.anzai.fun","author":"安仔","root":"/","typed_text":null,"theme_version":"2.2.6","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/宝箱.png","icon16":"/img/宝箱.png","icon32":"/img/宝箱.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-12-22 13:22:44"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<!-- hexo injector head_end start --><meta name="baidu-site-verification" content="codeva-t7nonQvebw" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/%E5%AE%9D%E7%AE%B1.png">
+    
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    主页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    文章列表
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                    文章分类
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                            资源分享
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            阿里P8大神教你如何用Python高效处理网络请求，提升代码性能
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        archives
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/anzai.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        安仔
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                添加微信获取更多资源:
+            </div>
+            <div class="trm-label trm-label-light">
+                anzaiyes
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            12/22
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            13:22
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            安仔
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>网络请求是现代应用中常见的操作，但大量的请求往往会导致代码性能低下，尤其是在高并发环境下。你可能会发现，每一次请求都需要等待网络响应，可能还会因为同步阻塞而影响整体性能。今天，我将带你走进Python的高效网络请求处理，教你一些常见的技巧，帮助你提升代码性能，减少等待时间，让程序跑得更快，跑得更稳。</p>
+<h2 id="异步编程：让请求不再阻塞"><a href="#异步编程：让请求不再阻塞" class="headerlink" title="异步编程：让请求不再阻塞"></a>异步编程：让请求不再阻塞</h2><p>首先，讲到网络请求优化，<strong>异步编程</strong>必定是绕不开的话题。简单来说，异步编程让你的程序在等待请求结果时，不会被“卡住”，而是继续做其他事情。Python的<code>asyncio</code>和<code>aiohttp</code>库可以帮助我们实现这一点。</p>
+<p>假设你有个网络请求要去查询一堆网站的数据，如果每个请求都要等一个一个处理完，整个程序就得慢吞吞地等待。但如果使用异步编程，你的程序会把网络请求交给后台去处理，在等待的过程中，主程序可以继续做其他任务。</p>
+<h3 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">fetch_url</span>(<span class="params">url</span>):</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> response:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">await</span> response.text()</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    urls = [<span class="string">&#x27;https://www.example.com&#x27;</span>, <span class="string">&#x27;https://www.example.org&#x27;</span>, <span class="string">&#x27;https://www.example.net&#x27;</span>]</span><br><span class="line">    tasks = [fetch_url(url) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line">    results = <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line">    <span class="keyword">for</span> result <span class="keyword">in</span> results:</span><br><span class="line">        <span class="built_in">print</span>(result[:<span class="number">100</span>])  <span class="comment"># 打印前100个字符</span></span><br><span class="line"></span><br><span class="line">asyncio.run(main())</span><br></pre></td></tr></table></figure>
+
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><p>这里，我们通过<code>async</code>和<code>await</code>让程序能够并发地处理多个请求。<code>asyncio.gather(*tasks)</code>方法会并行执行所有的任务，而不会像同步请求那样阻塞，整体效率显著提升。</p>
+<p>温馨提示：你可能会遇到一个问题，那就是<code>aiohttp</code>需要Python 3.7及以上版本才能正常使用。</p>
+<h2 id="使用连接池：重用连接避免重复建立"><a href="#使用连接池：重用连接避免重复建立" class="headerlink" title="使用连接池：重用连接避免重复建立"></a>使用连接池：重用连接避免重复建立</h2><p>每次发起一个请求时，底层会创建一个TCP连接，虽然这个过程是快速的，但如果每次请求都重新建立连接，效率会受到影响。为了解决这个问题，我们可以使用<strong>连接池</strong>，即复用已建立的连接。</p>
+<p>在Python中，<code>requests</code>库本身就支持连接池，只要你使用<code>requests.Session</code>来管理请求。</p>
+<h3 id="示例代码：-1"><a href="#示例代码：-1" class="headerlink" title="示例代码："></a>示例代码：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">session = requests.Session()</span><br><span class="line">urls = [<span class="string">&#x27;https://www.example.com&#x27;</span>, <span class="string">&#x27;https://www.example.org&#x27;</span>, <span class="string">&#x27;https://www.example.net&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">    response = session.get(url)</span><br><span class="line">    <span class="built_in">print</span>(response.text[:<span class="number">100</span>])  <span class="comment"># 打印前100个字符</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解释-1"><a href="#解释-1" class="headerlink" title="解释"></a>解释</h3><p>通过<code>requests.Session()</code>，我们让多个请求共享一个连接，避免了每次都要建立新连接的开销。这样，网络请求的性能就得到了明显提升。</p>
+<p>温馨提示：使用连接池时，要注意关闭连接（如<code>session.close()</code>），否则可能会导致连接泄漏。</p>
+<h2 id="批量请求：一次性发起多个请求"><a href="#批量请求：一次性发起多个请求" class="headerlink" title="批量请求：一次性发起多个请求"></a>批量请求：一次性发起多个请求</h2><p>当你需要向多个URL发起请求时，逐个请求可能会让你浪费很多时间。其实，我们可以批量发起请求，让程序并行处理这些任务。<strong>线程池</strong>和<strong>进程池</strong>是两个常用的批量处理工具。</p>
+<p>如果你使用的是<code>requests</code>库，可以通过<code>concurrent.futures.ThreadPoolExecutor</code>来实现多线程请求，这样程序就可以同时发起多个请求，提升效率。</p>
+<h3 id="示例代码：-2"><a href="#示例代码：-2" class="headerlink" title="示例代码："></a>示例代码：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fetch_url</span>(<span class="params">url</span>):</span><br><span class="line">    response = requests.get(url)</span><br><span class="line">    <span class="keyword">return</span> response.text[:<span class="number">100</span>]  <span class="comment"># 返回前100个字符</span></span><br><span class="line"></span><br><span class="line">urls = [<span class="string">&#x27;https://www.example.com&#x27;</span>, <span class="string">&#x27;https://www.example.org&#x27;</span>, <span class="string">&#x27;https://www.example.net&#x27;</span>]</span><br><span class="line"><span class="keyword">with</span> ThreadPoolExecutor(max_workers=<span class="number">3</span>) <span class="keyword">as</span> executor:</span><br><span class="line">    results = executor.<span class="built_in">map</span>(fetch_url, urls)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> result <span class="keyword">in</span> results:</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+<h3 id="解释-2"><a href="#解释-2" class="headerlink" title="解释"></a>解释</h3><p>这里通过<code>ThreadPoolExecutor</code>创建一个线程池，并通过<code>executor.map</code>方法批量执行多个请求。每个线程会处理一个请求，减少了等待时间，整体性能大大提升。</p>
+<p>温馨提示：线程池和进程池适用于IO密集型任务，对于CPU密集型任务，进程池会更有效，因为它能充分利用多核CPU。</p>
+<h2 id="使用合适的请求库"><a href="#使用合适的请求库" class="headerlink" title="使用合适的请求库"></a>使用合适的请求库</h2><p>Python中有多个请求库，常见的有<code>requests</code>、<code>aiohttp</code>、<code>http.client</code>等。不同的库在性能上有所差异。比如<code>requests</code>库在代码简洁性上非常优秀，但它是同步的。如果你要处理高并发请求，可能需要考虑使用<code>aiohttp</code>或者<code>http.client</code>。</p>
+<p>如果你不需要并发请求，仅仅是偶尔发起一个请求，那么使用<code>requests</code>就足够了。<code>requests</code>的优势是使用简单，文档丰富。如果是高并发，使用<code>aiohttp</code>会更合适，能有效减少阻塞，提升性能。</p>
+<h3 id="示例代码：-3"><a href="#示例代码：-3" class="headerlink" title="示例代码："></a>示例代码：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用requests库发起一个简单请求</span></span><br><span class="line">response = requests.get(<span class="string">&#x27;https://www.example.com&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(response.text[:<span class="number">100</span>])  <span class="comment"># 打印前100个字符</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解释-3"><a href="#解释-3" class="headerlink" title="解释"></a>解释</h3><p><code>requests</code>库是最常用的Python HTTP请求库，代码非常简洁直观。但如果你需要处理成百上千个并发请求，考虑使用<code>aiohttp</code>或更底层的<code>http.client</code>会更合适。</p>
+<p>温馨提示：每次请求前，最好设置合适的超时参数，否则可能因为网络问题导致请求一直挂起。</p>
+<h2 id="限制请求频率：避免被封"><a href="#限制请求频率：避免被封" class="headerlink" title="限制请求频率：避免被封"></a>限制请求频率：避免被封</h2><p>如果你发起大量请求，可能会导致服务器认为你是在进行恶意攻击，从而把你封禁。因此，控制请求的频率也是非常重要的。在Python中，你可以通过<code>time.sleep()</code>来设置请求之间的间隔，避免过快地发起请求。</p>
+<h3 id="示例代码：-4"><a href="#示例代码：-4" class="headerlink" title="示例代码："></a>示例代码：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">urls = [<span class="string">&#x27;https://www.example.com&#x27;</span>, <span class="string">&#x27;https://www.example.org&#x27;</span>, <span class="string">&#x27;https://www.example.net&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">    response = requests.get(url)</span><br><span class="line">    <span class="built_in">print</span>(response.text[:<span class="number">100</span>])  <span class="comment"># 打印前100个字符</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)  <span class="comment"># 每次请求之间暂停1秒钟</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解释-4"><a href="#解释-4" class="headerlink" title="解释"></a>解释</h3><p>这里我们通过<code>time.sleep(1)</code>让程序在每次请求后暂停1秒，避免短时间内发送过多请求，减少被封的风险。</p>
+<p>温馨提示：如果请求太频繁，可能会导致目标网站的服务器负担过重，产生不必要的负面影响，尽量合理控制请求频率。</p>
+<hr>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>处理网络请求的效率直接影响到程序的响应速度和性能。通过异步编程、连接池、线程池、批量请求等方式，我们可以显著提高程序的性能，尤其在需要处理大量并发请求时。这些技巧能够让你在面对高并发、大规模数据抓取等任务时，做到游刃有余。</p>
+<p>希望这些技巧能够帮你写出更加高效、流畅的网络请求代码，提升代码性能的同时，也为用户带来更好的体验。</p>
+<hr>
+<h2 id="彩蛋时间"><a href="#彩蛋时间" class="headerlink" title="彩蛋时间"></a>彩蛋时间</h2><p>走过路过不要错过，为大家准备了一份pycharm破解工具，感兴趣的朋友可以看看哈：<a target="_blank" rel="noopener" href="http://codeflyer.esparks.cn/archives/jetbrainsquanjiatongpojie">最新pycharm破解</a></p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/zhi-you-ni-xiang-bu-dao-mei-you-a-li-p7-da-niu-yong-python-shi-xian-bu-le-de-hei-ke-ji.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">22</div>
+                    <div class="trm-cover-month">2024/12</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/zhi-you-ni-xiang-bu-dao-mei-you-a-li-p7-da-niu-yong-python-shi-xian-bu-le-de-hei-ke-ji.html" class="trm-anima-link">
+                    只有你想不到，没有阿里P7大牛用Python实现不了的黑科技
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/12/22</li>
+                <li>13:25</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/yong-python-da-zao-gao-xiao-tu-xiang-chu-li-gong-ju-a-li-p8-da-shen-de-mi-jue-da-gong-kai.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">22</div>
+                    <div class="trm-cover-month">2024/12</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/yong-python-da-zao-gao-xiao-tu-xiang-chu-li-gong-ju-a-li-p8-da-shen-de-mi-jue-da-gong-kai.html" class="trm-anima-link">
+                    用Python打造高效图像处理工具，阿里P8大神的秘诀大公开
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/12/22</li>
+                <li>13:22</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v8.1.1
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.6
+            </span>
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.6"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.6"></script>
+
+<!-- CDN --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>

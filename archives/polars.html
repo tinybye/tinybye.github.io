@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="如果你玩过Pandas，那应该知道它在处理小数据集时是一把好手，但数据量一大，它的速度就像跑高速上的拖拉机，慢得让人崩溃。Polars呢？它用的是Apache Arrow内存格式，加上Rust语言写的内核，说白了，速度就是它的最大亮点！今天就聊聊怎么用Polars做些简单又酷的事儿。  数据帧是怎么回事？Polars的核心是DataFrame，这玩意儿就跟Pandas的DataFrame差不多，但">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Polars，一款闪电般快速的 Python 数据库利器！">
+<meta property="og:url" content="https://blog.anzai.fun/archives/polars.html">
+<meta property="og:site_name" content="安仔的百宝箱">
+<meta property="og:description" content="如果你玩过Pandas，那应该知道它在处理小数据集时是一把好手，但数据量一大，它的速度就像跑高速上的拖拉机，慢得让人崩溃。Polars呢？它用的是Apache Arrow内存格式，加上Rust语言写的内核，说白了，速度就是它的最大亮点！今天就聊聊怎么用Polars做些简单又酷的事儿。  数据帧是怎么回事？Polars的核心是DataFrame，这玩意儿就跟Pandas的DataFrame差不多，但">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-11-25T12:06:49.075Z">
+<meta property="article:modified_time" content="2024-11-25T12:06:49.075Z">
+<meta property="article:author" content="安仔">
+<meta property="article:tag" content="夸克网盘">
+<meta property="article:tag" content="电影">
+<meta property="article:tag" content="电视剧">
+<meta property="article:tag" content="百度网盘">
+<meta property="article:tag" content="英语四六级">
+<meta name="twitter:card" content="summary">
+
+    <meta name="keywords" content="电影,电视剧,夸克网盘,百度网盘,英语四六级">
+
+
+<title >Polars，一款闪电般快速的 Python 数据库利器！</title>
+
+<!-- Favicon -->
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.2.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"blog.anzai.fun","author":"安仔","root":"/","typed_text":null,"theme_version":"2.2.6","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/宝箱.png","icon16":"/img/宝箱.png","icon32":"/img/宝箱.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-11-25 20:06:49"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<!-- hexo injector head_end start --><meta name="baidu-site-verification" content="codeva-t7nonQvebw" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/%E5%AE%9D%E7%AE%B1.png">
+    
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    主页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    文章列表
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                    文章分类
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                            资源分享
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            Polars，一款闪电般快速的 Python 数据库利器！
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        archives
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/anzai.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        安仔
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                添加微信获取更多资源:
+            </div>
+            <div class="trm-label trm-label-light">
+                anzaiyes
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            11/25
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            20:06
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            安仔
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>如果你玩过Pandas，那应该知道它在处理小数据集时是一把好手，但数据量一大，它的速度就像跑高速上的拖拉机，慢得让人崩溃。Polars呢？它用的是<strong>Apache Arrow内存格式</strong>，加上<strong>Rust语言</strong>写的内核，说白了，速度就是它的最大亮点！今天就聊聊怎么用Polars做些简单又酷的事儿。</p>
+<hr>
+<h3 id="数据帧是怎么回事？"><a href="#数据帧是怎么回事？" class="headerlink" title="数据帧是怎么回事？"></a>数据帧是怎么回事？</h3><p>Polars的核心是<strong>DataFrame</strong>，这玩意儿就跟Pandas的DataFrame差不多，但多了点“超能力”。要用Polars，你得先装它：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install polars</span><br></pre></td></tr></table></figure>
+
+<p>有了它，我们来看看Polars的DataFrame是啥样的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> polars <span class="keyword">as</span> pl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个简单的 DataFrame</span></span><br><span class="line">data = pl.DataFrame(&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: [<span class="string">&quot;Alice&quot;</span>, <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;Cathy&quot;</span>],</span><br><span class="line">    <span class="string">&quot;age&quot;</span>: [<span class="number">25</span>, <span class="number">30</span>, <span class="number">35</span>],</span><br><span class="line">    <span class="string">&quot;city&quot;</span>: [<span class="string">&quot;New York&quot;</span>, <span class="string">&quot;Los Angeles&quot;</span>, <span class="string">&quot;Chicago&quot;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure>
+
+<p>输出看着很清爽：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">shape: (3, 3)</span><br><span class="line">┌───────┬─────┬─────────────┐</span><br><span class="line">│ name  │ age │ city        │</span><br><span class="line">├───────┼─────┼─────────────┤</span><br><span class="line">│ Alice │  25 │ New York    │</span><br><span class="line">│ Bob   │  30 │ Los Angeles │</span><br><span class="line">│ Cathy │  35 │ Chicago     │</span><br><span class="line">└───────┴─────┴─────────────┘</span><br></pre></td></tr></table></figure>
+
+<p>咋样，和Pandas的表差不多吧？</p>
+<hr>
+<h3 id="数据选择，简单粗暴"><a href="#数据选择，简单粗暴" class="headerlink" title="数据选择，简单粗暴"></a>数据选择，简单粗暴</h3><p>选列、选行是常规操作，Polars搞定它就是这么简单。</p>
+<h4 id="按列选"><a href="#按列选" class="headerlink" title="按列选"></a>按列选</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取年龄列</span></span><br><span class="line"><span class="built_in">print</span>(data[<span class="string">&quot;age&quot;</span>])</span><br></pre></td></tr></table></figure>
+
+<p>输出的效果像极了Series，但速度甩Pandas几条街。</p>
+<h4 id="按条件选"><a href="#按条件选" class="headerlink" title="按条件选"></a>按条件选</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 找出30岁以上的人</span></span><br><span class="line">older_than_30 = data.<span class="built_in">filter</span>(pl.col(<span class="string">&quot;age&quot;</span>) &gt; <span class="number">30</span>)</span><br><span class="line"><span class="built_in">print</span>(older_than_30)</span><br></pre></td></tr></table></figure>
+
+<p>这个<code>filter</code>看着就很人性化，别说，读起来还挺像英语句子。</p>
+<h4 id="按位置选"><a href="#按位置选" class="headerlink" title="按位置选"></a>按位置选</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取第0行</span></span><br><span class="line"><span class="built_in">print</span>(data[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<p>小细节：Polars在按行选的时候更高效，别问，问就是Rust功劳。</p>
+<hr>
+<h3 id="数据变形，真快！"><a href="#数据变形，真快！" class="headerlink" title="数据变形，真快！"></a>数据变形，真快！</h3><p>Polars支持类似Pandas的变形操作，但它更适合处理大数据集，尤其是<strong>列式存储</strong>的优势一看便知。</p>
+<h4 id="增加新列"><a href="#增加新列" class="headerlink" title="增加新列"></a>增加新列</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增加一个新列，表示是否成年</span></span><br><span class="line">data = data.with_columns((pl.col(<span class="string">&quot;age&quot;</span>) &gt; <span class="number">18</span>).alias(<span class="string">&quot;is_adult&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure>
+
+<p>这玩意儿用起来真的“丝滑”，没多余的锅碗瓢盆。</p>
+<h4 id="按列计算"><a href="#按列计算" class="headerlink" title="按列计算"></a>按列计算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算年龄的平均值</span></span><br><span class="line">mean_age = data[<span class="string">&quot;age&quot;</span>].mean()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;平均年龄是：<span class="subst">&#123;mean_age&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>计算还自带聚合操作，效率让人想扔掉Pandas。</p>
+<hr>
+<h3 id="与Pandas无缝对接"><a href="#与Pandas无缝对接" class="headerlink" title="与Pandas无缝对接"></a>与Pandas无缝对接</h3><p>很多人担心切换到Polars会不兼容之前的代码。别怕，Polars提供了和Pandas来回转的桥梁。</p>
+<h4 id="Pandas-Polars"><a href="#Pandas-Polars" class="headerlink" title="Pandas -&gt; Polars"></a>Pandas -&gt; Polars</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个 Pandas DataFrame</span></span><br><span class="line">pandas_df = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: [<span class="string">&quot;Alice&quot;</span>, <span class="string">&quot;Bob&quot;</span>],</span><br><span class="line">    <span class="string">&quot;age&quot;</span>: [<span class="number">25</span>, <span class="number">30</span>]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转成 Polars DataFrame</span></span><br><span class="line">polars_df = pl.from_pandas(pandas_df)</span><br><span class="line"><span class="built_in">print</span>(polars_df)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Polars-Pandas"><a href="#Polars-Pandas" class="headerlink" title="Polars -&gt; Pandas"></a>Polars -&gt; Pandas</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 再转回 Pandas</span></span><br><span class="line">back_to_pandas = polars_df.to_pandas()</span><br><span class="line"><span class="built_in">print</span>(back_to_pandas)</span><br></pre></td></tr></table></figure>
+
+<p>你看，Polars不光快，还挺懂事儿。</p>
+<hr>
+<h3 id="温馨提示"><a href="#温馨提示" class="headerlink" title="温馨提示"></a>温馨提示</h3><ol>
+<li><strong>别搞太多循环</strong>：Polars有自己的表达式系统，尽量用内置方法搞定。循环写多了，速度优势就没了。</li>
+<li><strong>记得用最新版本</strong>：Polars更新特别快，偶尔会有API变化，别用老版本卡bug。</li>
+<li><strong>Pandas不一定全弃</strong>：如果你的数据集小到装得下内存，用Pandas也挺香，别死磕速度。</li>
+</ol>
+<hr>
+<h3 id="聚合操作，事半功倍"><a href="#聚合操作，事半功倍" class="headerlink" title="聚合操作，事半功倍"></a>聚合操作，事半功倍</h3><p>说到处理分组数据，Polars比Pandas整洁很多。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按城市分组，计算平均年龄</span></span><br><span class="line">grouped = data.groupby(<span class="string">&quot;city&quot;</span>).agg([</span><br><span class="line">    pl.col(<span class="string">&quot;age&quot;</span>).mean().alias(<span class="string">&quot;avg_age&quot;</span>)</span><br><span class="line">])</span><br><span class="line"><span class="built_in">print</span>(grouped)</span><br></pre></td></tr></table></figure>
+
+<p>输出就很干净，代码一目了然。</p>
+<hr>
+<h3 id="写入与读取，快得一塌糊涂"><a href="#写入与读取，快得一塌糊涂" class="headerlink" title="写入与读取，快得一塌糊涂"></a>写入与读取，快得一塌糊涂</h3><p>Polars支持各种格式，CSV、Parquet都不在话下。</p>
+<h4 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.write_csv(<span class="string">&quot;output.csv&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从CSV加载</span></span><br><span class="line">loaded_data = pl.read_csv(<span class="string">&quot;output.csv&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(loaded_data)</span><br></pre></td></tr></table></figure>
+
+<p>用Parquet还能再快一丢丢，适合特别大的数据。</p>
+<hr>
+<p>Polars就是这么个“狠角色”，轻快灵活，用着还贼省心。如果你的数据量大到Pandas吃不消，Polars绝对值得一试！</p>
+<h2 id="彩蛋时间"><a href="#彩蛋时间" class="headerlink" title="彩蛋时间"></a>彩蛋时间</h2><p>走过路过不要错过，为大家准备了一份pycharm破解工具，感兴趣的朋友可以看看哈：<a target="_blank" rel="noopener" href="http://codeflyer.esparks.cn/archives/jetbrainsquanjiatongpojie">最新pycharm破解</a></p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/pycaret.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">25</div>
+                    <div class="trm-cover-month">2024/11</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/pycaret.html" class="trm-anima-link">
+                    PyCaret，一个让机器学习变简单的神奇库！
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/11/25</li>
+                <li>20:07</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/fastapi.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">25</div>
+                    <div class="trm-cover-month">2024/11</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Python/">
+                    Python
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/fastapi.html" class="trm-anima-link">
+                    FastAPI，构建超快 API 的 Python 终极武器！
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/11/25</li>
+                <li>20:06</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v8.1.1
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.6
+            </span>
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.6"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.6"></script>
+
+<!-- CDN --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
