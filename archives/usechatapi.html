@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="一、概述ChatGPT 是一种基于 GPT-3.5 架构的强大自然语言处理技术，最近在人工智能领域引起了极大的关注和火爆程度。这种技术是由 OpenAI 开发的，可以为开发者和企业提供高质量的自然语言交互能力。 最新的 GPT-3.5 模型比之前的模型更加出色，具有更高的语言理解和生成能力，可以为用户提供更加精确和有趣的回答。这个模型还可以学习和适应不同领域的语言和专业术语，因此可以用于许多不同的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="这篇文章好像真的想把接入 ChatGPT API 这个简单的事情讲的更清楚">
+<meta property="og:url" content="https://blog.anzai.fun/archives/usechatapi.html">
+<meta property="og:site_name" content="安仔的百宝箱">
+<meta property="og:description" content="一、概述ChatGPT 是一种基于 GPT-3.5 架构的强大自然语言处理技术，最近在人工智能领域引起了极大的关注和火爆程度。这种技术是由 OpenAI 开发的，可以为开发者和企业提供高质量的自然语言交互能力。 最新的 GPT-3.5 模型比之前的模型更加出色，具有更高的语言理解和生成能力，可以为用户提供更加精确和有趣的回答。这个模型还可以学习和适应不同领域的语言和专业术语，因此可以用于许多不同的">
+<meta property="og:locale">
+<meta property="og:image" content="https://blog.anzai.fun/img/404.jpg">
+<meta property="og:image" content="https://blog.anzai.fun/img/404.jpg">
+<meta property="og:image" content="https://blog.anzai.fun/img/404.jpg">
+<meta property="og:image" content="https://blog.anzai.fun/img/404.jpg">
+<meta property="article:published_time" content="2023-03-20T12:58:24.590Z">
+<meta property="article:modified_time" content="2023-03-20T12:58:24.590Z">
+<meta property="article:author" content="安仔">
+<meta property="article:tag" content="夸克网盘">
+<meta property="article:tag" content="电影">
+<meta property="article:tag" content="电视剧">
+<meta property="article:tag" content="百度网盘">
+<meta property="article:tag" content="英语四六级">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.anzai.fun/img/404.jpg">
+
+    <meta name="keywords" content="电影,电视剧,夸克网盘,百度网盘,英语四六级">
+
+
+<title >这篇文章好像真的想把接入 ChatGPT API 这个简单的事情讲的更清楚</title>
+
+<!-- Favicon -->
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/%E5%AE%9D%E7%AE%B1.png?v=2.2.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.2.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"blog.anzai.fun","author":"安仔","root":"/","typed_text":null,"theme_version":"2.2.6","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/宝箱.png","icon16":"/img/宝箱.png","icon32":"/img/宝箱.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-03-20 20:58:24"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+
+    
+        <!-- Baidu Analytics -->
+        <script defer>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?2c2f92eddb16592d6a6be201f44d2713";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+     
+
+    
+
+    
+ 
+<!-- hexo injector head_end start --><meta name="baidu-site-verification" content="codeva-t7nonQvebw" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/%E5%AE%9D%E7%AE%B1.png">
+    
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    主页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    文章列表
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                    文章分类
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" target="">
+                            资源分享
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            这篇文章好像真的想把接入 ChatGPT API 这个简单的事情讲的更清楚
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        archives
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/anzai.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        安仔
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                添加微信获取更多资源:
+            </div>
+            <div class="trm-label trm-label-light">
+                anzaiyes
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            03/20
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            20:58
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            安仔
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>ChatGPT 是一种基于 GPT-3.5 架构的强大自然语言处理技术，最近在人工智能领域引起了极大的关注和火爆程度。这种技术是由 OpenAI 开发的，可以为开发者和企业提供高质量的自然语言交互能力。</p>
+<p>最新的 GPT-3.5 模型比之前的模型更加出色，具有更高的语言理解和生成能力，可以为用户提供更加精确和有趣的回答。这个模型还可以学习和适应不同领域的语言和专业术语，因此可以用于许多不同的行业和应用场景。</p>
+<p>使用 ChatGPT 的 API 可以让开发者快速集成强大的自然语言处理技术到他们的应用程序中。API 的常用玩法包括聊天机器人、智能客服、自然语言搜索引擎和自动语言翻译器等。这些应用程序可以为用户提供更加自然、流畅和智能的体验，从而提高用户满意度和效率。</p>
+<h2 id="二、作为程序员，我能做点什么"><a href="#二、作为程序员，我能做点什么" class="headerlink" title="二、作为程序员，我能做点什么"></a>二、作为程序员，我能做点什么</h2><p>都说 ChatGPT 这样发展下去，就要取代程序员了。当然，我认为短时间内肯定是达不到这种程度的，所以在他要取代我们之前，我先学会如何压榨他给我打工不就好了？ 我让他帮我写代码，查资料，接入 API 实现一些有意思的功能，以及，写一篇文章的开头，比如这样：</p>
+<p><img src="http://img.esparks.cn/img/20230318212707_3ef84b84195ae1506680c72df8ffdbbb.png"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>没错，第一部分的概述就是 ChatGPT 自动生成的。当然，我个人认为还是稍微有些死板，不过效果也不错了。</p>
+<h2 id="三、API-介绍"><a href="#三、API-介绍" class="headerlink" title="三、API 介绍"></a>三、API 介绍</h2><p>言归正传，本文主要是介绍如何接入 OpenAI 的接口，从而快速实现一个基于 GPT3.5 模型的聊天 demo。当然，自行研读官网的 API 文档，有些经验的程序员都能搞定。在这里只是想将接入 OpenAI 的门槛再降低一些，帮助大家更好的理解和使用。</p>
+<p>官方接口文档：<a target="_blank" rel="noopener" href="https://platform.openai.com/docs/api-reference/chat">https://platform.openai.com/docs/api-reference/chat</a></p>
+<h3 id="1-API-Key"><a href="#1-API-Key" class="headerlink" title="1.API Key"></a>1.API Key</h3><p>当你想要调用 OpenAI 的 API 时，首先要先创建一个属于自己的 API Key，因为所有的请求都需要通过 API Key 来鉴权。</p>
+<p>登录 platform.openai.com，访问地址：<a target="_blank" rel="noopener" href="https://platform.openai.com/account/api-keys%EF%BC%8C%E5%8D%B3%E5%8F%AF%E5%88%9B%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84">https://platform.openai.com/account/api-keys，即可创建属于自己的</a> key。如图所示：</p>
+<p><img src="http://img.esparks.cn/img/20230318212702_fd758717ad8126590392e24041c54639.png"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>创建 key 时，需要立即复制并保存，因为 key 的信息只会展示一次，之后就看不到这个 key 的信息了。</p>
+<h3 id="2-请求方式"><a href="#2-请求方式" class="headerlink" title="2.请求方式"></a>2.请求方式</h3><p>实现聊天功能其实非常简单，只需要 POST 请求这个 API 即可：<code>https://api.openai.com/v1/chat/completions</code></p>
+<h4 id="最简单的例子"><a href="#最简单的例子" class="headerlink" title="最简单的例子"></a>最简单的例子</h4><p>官方给出的一个最基本的 curl 的请求方式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl https:<span class="operator">/</span><span class="operator">/</span>api.openai.com<span class="operator">/</span>v1<span class="operator">/</span>chat<span class="operator">/</span>completions \</span><br><span class="line">  <span class="operator">-</span>H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  <span class="operator">-</span>H &quot;Authorization: Bearer $OPENAI_API_KEY&quot; \</span><br><span class="line">  <span class="operator">-</span>d <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">    &quot;model&quot;: &quot;gpt-3.5-turbo&quot;,</span></span><br><span class="line"><span class="string">    &quot;messages&quot;: [&#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Hello!&quot;&#125;]</span></span><br><span class="line"><span class="string">  &#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，需要在请求头里配置好你的<code>OPENAI_API_KEY</code>，也就是上一步生成的 key。</p>
+<p>请求体中，有两个参数：</p>
+<ul>
+<li><code>model</code>：本次对话选用的模型，这里使用了 gpt-3.5-turbo</li>
+<li><code>messages</code>：对话信息</li>
+</ul>
+<p>对于<code>messages</code>，这里需要多说几句。</p>
+<p>最开始使用网页版的 ChatGPT 时，疑惑为什么后台可以记住这么多次的对话，并且每切换到一个对话上，ChatGPT 都可以联系上下文延续之前的对话。后来才知道其实每次提问时，都是将当前对话已有的全部聊天记录请求到后台，ChatGPT 会根据全部的聊天信息去分析语境，并且做后续的回答。</p>
+<p>所以，我们在调用 API 的时候也是如此，请求中的<code>messages</code>是一个 JSON 数组。其中包含本次对话的全部消息。只有这样才能保证对话的连贯性。</p>
+<p>其中：</p>
+<ul>
+<li><code>role</code>：代表角色，用来区分消息是谁发送的。共有三种角色：system-系统角色，可以做一些底层的配置。user-用户角色，代表是用户发的消息；assistant-助手角色，也就是 ChatGPT 返回的消息。</li>
+<li><code>content</code>：消息内容</li>
+</ul>
+<p>所以，当进行过几次对话后，你请求时的<code>messages</code>参数应该会像这样：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl https:<span class="operator">/</span><span class="operator">/</span>api.openai.com<span class="operator">/</span>v1<span class="operator">/</span>chat<span class="operator">/</span>completions \</span><br><span class="line">  <span class="operator">-</span>H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  <span class="operator">-</span>H &quot;Authorization: Bearer $OPENAI_API_KEY&quot; \</span><br><span class="line">  <span class="operator">-</span>d <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">    &quot;model&quot;: &quot;gpt-3.5-turbo&quot;,</span></span><br><span class="line"><span class="string">    &quot;messages&quot;: [&#123;&quot;content&quot;:&quot;你是谁&quot;,&quot;role&quot;:&quot;user&quot;&#125;,&#123;&quot;content&quot;:&quot;\n\n我是一个人工智能语言模型，被称为OpenAI的GPT-3模型。&quot;,&quot;role&quot;:&quot;assistant&quot;&#125;,&#123;&quot;content&quot;:&quot;你是如何工作的&quot;,&quot;role&quot;:&quot;user&quot;&#125;,&#123;&quot;content&quot;:&quot;我是由OpenAI开发的一个自然语言处理模型，使用了深度学习和人工智能技术。我从大量的数据中学习，包括文本、文章、电子邮件、社交媒体帖子等。我可以生成文本、回答问题、翻译语言和执行其他语言任务。当用户输入文本时，我会分析文本的上下文和语义，然后使用我的算法来产生响应。为了提高我的准确性和响应速度，我经常被训练和更新。&quot;,&quot;role&quot;:&quot;assistant&quot;&#125;]</span></span><br><span class="line"><span class="string">  &#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>对于<code>messages</code>的更多描述，感兴趣的朋友可以再多看一眼官方文档的介绍：<a target="_blank" rel="noopener" href="https://platform.openai.com/docs/guides/chat/introduction">https://platform.openai.com/docs/guides/chat/introduction</a></p>
+<h4 id="其他的重要入参"><a href="#其他的重要入参" class="headerlink" title="其他的重要入参"></a>其他的重要入参</h4><p>以上只是一个最基础的例子，只包含了两个必填参数——<code>model</code>和<code>messages</code>。除此之外，接口还可以传入其他的参数，在这里重点介绍几个常用的参数：</p>
+<ul>
+<li><code>temperature</code>：这个参数控制生成文本的随机性，取值范围在 0 到 2 之间。较高的 temperature 会导致更随机的生成结果，而较低的 temperature 则会导致更可预测的生成结果。通常情况下，值在 0.5 到 1 之间。</li>
+<li><code>max_tokens</code>： 生成文本的最大长度，以词汇单位计算。这个参数控制生成文本的长度。</li>
+<li><code>stop</code>： 用于控制生成文本的停止条件。这个参数是一个字符串数组，当生成文本中出现数组中任何一个字符串时，API 将停止生成。</li>
+<li><code>frequency_penalty</code>和<code>presence_penalty</code>： 这两个参数用于控制生成文本的多样性，值的范围在 -2.0 到 2.0 之间。<code>frequency_penalty</code>用于控制生成文本中重复词汇的数量，而<code>presence_penalty</code>用于控制生成文本中出现的词汇和输入文本中出现的词汇之间的相似度。通常情况下，这两个参数的值应在 0 到 1 之间。</li>
+</ul>
+<h3 id="3-响应参数"><a href="#3-响应参数" class="headerlink" title="3.响应参数"></a>3.响应参数</h3><p>这里直接放一段接口的响应值：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;id&quot;: &quot;chatcmpl-6vJecaJmETOgIc7ZWF47wXUeqmeWU&quot;,</span><br><span class="line">    &quot;object&quot;: &quot;chat.completion&quot;,</span><br><span class="line">    &quot;created&quot;: <span class="number">1679118266</span>,</span><br><span class="line">    &quot;model&quot;: &quot;gpt-3.5-turbo-0301&quot;,</span><br><span class="line">    &quot;usage&quot;: &#123;</span><br><span class="line">        &quot;prompt_tokens&quot;: <span class="number">11</span>,</span><br><span class="line">        &quot;completion_tokens&quot;: <span class="number">28</span>,</span><br><span class="line">        &quot;total_tokens&quot;: <span class="number">39</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;choices&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;message&quot;: &#123;</span><br><span class="line">                &quot;role&quot;: &quot;assistant&quot;,</span><br><span class="line">                &quot;content&quot;: &quot;\n\n我是一个人工智能语言模型，被称为OpenAI的GPT-3模型。&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;finish_reason&quot;: &quot;stop&quot;,</span><br><span class="line">            &quot;index&quot;: <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>choices</code>内部的<code>message</code>是本次返回的消息，我们解析后获取这部分信息就完成本次对话啦。</p>
+<p><code>usage</code>是本次请求消耗的 token 信息。其中：</p>
+<ul>
+<li><code>prompt_tokens</code>是发送请求消耗的 token 数</li>
+<li><code>completion_tokens</code>是响应消耗的 token 数</li>
+<li><code>total_tokens</code>就是二者的总和了</li>
+</ul>
+<blockquote>
+<p>Q：啥是 token？</p>
+<p>A：</p>
+<p>在计算机编程中，token 是指代码中的最小单元，通常是一个词、一个符号或者一个数字。在机器学习和自然语言处理中，token 通常指的是一个单词或一个词组。</p>
+<p>在 OpenAI API 中，token 是指模型对输入文本进行分词后的结果。模型的输入是一个由 token 组成的序列，模型会根据这个序列来生成相应的输出。因此，每次调用 API 时，您需要指定生成回答的最大 token 数，以限制模型生成的文本长度。</p>
+<p>同时，OpenAI API 使用 token 来计费。每个 API 调用需要消耗一定数量的 token，具体数量取决于模型的大小和您指定的参数。因此，在使用 OpenAI API 时，需要仔细控制每个 API 调用的参数，以最大程度地利用已经消耗的 token。</p>
+</blockquote>
+<h2 id="四、代码实现"><a href="#四、代码实现" class="headerlink" title="四、代码实现"></a>四、代码实现</h2><p>其实代码实现也不难，核心逻辑就是调用 OpenAI 的 API，以及缓存每个对话的消息。同时，参数应该可配置化，且要考虑到多用户同时使用时相互隔离。</p>
+<p>项目使用 Java 开发，jdk 版本为 1.8，使用 springboot 2.7.9 版本构建项目，http 请求使用了 okhttp3，缓存使用了 guava 的缓存组件。</p>
+<h3 id="1-核心逻辑，API-调用"><a href="#1-核心逻辑，API-调用" class="headerlink" title="1.核心逻辑，API 调用"></a>1.核心逻辑，API 调用</h3><p>首先，依照上文介绍的请求信息格式，构造请求头和请求体：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 初始化请求体</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> msgs</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> Map&lt;String, Object&gt; <span class="title function_">getGPTRequestBody</span><span class="params">(List&lt;GPTMessageDTO&gt; msgs)</span> &#123;</span><br><span class="line">    Map&lt;String, Object&gt; body = Maps.newHashMap();</span><br><span class="line">    <span class="comment">// 指定为gpt-3.5-turbo模型</span></span><br><span class="line">    body.put(<span class="string">&quot;model&quot;</span>, <span class="string">&quot;gpt-3.5-turbo&quot;</span>);</span><br><span class="line">    body.put(<span class="string">&quot;messages&quot;</span>, msgs);</span><br><span class="line">    body.put(<span class="string">&quot;max_tokens&quot;</span>, baseConfig.getMaxTokens());</span><br><span class="line">    body.put(<span class="string">&quot;temperature&quot;</span>, baseConfig.getTemperature());</span><br><span class="line">    <span class="keyword">return</span> body;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 初始化请求头</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> Map&lt;String, String&gt; <span class="title function_">getGPTHeader</span><span class="params">()</span> &#123;</span><br><span class="line">    Map&lt;String, String&gt; header = Maps.newHashMap();</span><br><span class="line">    <span class="comment">// 自己账户申请的APIkey</span></span><br><span class="line">    header.put(<span class="string">&quot;Authorization&quot;</span>, <span class="string">&quot;Bearer &quot;</span> + baseConfig.getChatGptApiKey());</span><br><span class="line">    header.put(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> header;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用 okhttp3 发送请求：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造请求</span></span><br><span class="line">Map&lt;String, String&gt; header = getGPTHeader();</span><br><span class="line">List&lt;GPTMessageDTO&gt; msgs = getMsgs(text, fromUser);</span><br><span class="line">Map&lt;String, Object&gt; body = getGPTRequestBody(msgs);</span><br><span class="line"><span class="type">MediaType</span> <span class="variable">mediaType</span> <span class="operator">=</span> MediaType.parse(<span class="string">&quot;application/json;charset=utf-8&quot;</span>);</span><br><span class="line"><span class="type">RequestBody</span> <span class="variable">requestBody</span> <span class="operator">=</span> RequestBody.create(JSON.toJSONString(body), mediaType);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求接口，并返回信息</span></span><br><span class="line">String response;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    response = OkHttpUtil.post(COMPLETION_URL, requestBody, header);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;哎呀，网络不好，请稍后重试&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 OkHttpUtils 是简单封装了一下的工具类，方便在头里添加一些通用的属性。</p>
+<p>请求后解析响应值里的数据，都是些对 JSON 格式数据的处理，这里就不多说了。</p>
+<h3 id="2-缓存设计"><a href="#2-缓存设计" class="headerlink" title="2.缓存设计"></a>2.缓存设计</h3><p>缓存是为了保存每组对话的历史聊天记录，从而保证之后聊天的顺畅性。</p>
+<p>这里只设计了用户层级的区分，即每个用户只有一组对话，我们在缓存里保存这组对话的消息列表。</p>
+<p>当然，如果需要支持每个用户可以开启多组对话，那就再套一层即可。</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CacheUtil</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对话缓存，key为用名，value为一组对话的历史消息列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Cache&lt;String, List&lt;GPTMessageDTO&gt;&gt; CHAT_GPT_CACHE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// 设置超时时间</span></span><br><span class="line">        CHAT_GPT_CACHE = CacheBuilder.newBuilder().expireAfterWrite(<span class="number">10</span>, TimeUnit.MINUTES).build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新消息列表</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userName</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> gptMessageDtos</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setGptCache</span><span class="params">(String userName, List&lt;GPTMessageDTO&gt; gptMessageDtos)</span> &#123;</span><br><span class="line">        CHAT_GPT_CACHE.put(userName, gptMessageDtos);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取用户的消息列表</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userName</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> List&lt;GPTMessageDTO&gt; <span class="title function_">getGptCache</span><span class="params">(String userName)</span> &#123;</span><br><span class="line">        List&lt;GPTMessageDTO&gt; messageDtos = CHAT_GPT_CACHE.getIfPresent(userName);</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(messageDtos)) &#123;</span><br><span class="line">            <span class="keyword">return</span> Lists.newArrayList();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> messageDtos;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 清空用户对应的对话缓存</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userName</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">clearGptCache</span><span class="params">(String userName)</span> &#123;</span><br><span class="line">        List&lt;GPTMessageDTO&gt; messageDtos = CHAT_GPT_CACHE.getIfPresent(userName);</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isNotEmpty(messageDtos)) &#123;</span><br><span class="line">            messageDtos.clear();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-参数配置"><a href="#3-参数配置" class="headerlink" title="3.参数配置"></a>3.参数配置</h3><p>将调用 API 时需要的参数放到配置文件里，方便修改：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># chatGPT配置</span><br><span class="line"># 你的apiKey</span><br><span class="line">chatgpt.apiKey=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</span><br><span class="line"># 最大的token数</span><br><span class="line">chatgpt.maxTokens=<span class="number">1024</span></span><br><span class="line"># 控制生成文本的随机性，数值越高回答越随机，数值越低回答越固定。范围<span class="number">0</span>-<span class="number">2</span>，通常情况下，值在<span class="number">0.5</span>到<span class="number">1</span>之间</span><br><span class="line">chatgpt.temperature=<span class="number">0.8</span></span><br><span class="line"># 一次连续对话中，最大的对话次数限制，可自行修改</span><br><span class="line">chatgpt.maxChatNum=<span class="number">15</span></span><br><span class="line"># 是否开启连续对话</span><br><span class="line">chatgpt.isContinuous=<span class="literal">true</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基本配置，从配置文件读取</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2023/3/17</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BaseConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;chatgpt.apiKey&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String chatGptApiKey;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;chatgpt.maxTokens&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> maxTokens;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;chatgpt.temperature&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> temperature;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;chatgpt.maxChatNum&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer maxChatNum;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;chatgpt.isContinuous&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> isContinuous;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-请求"><a href="#4-请求" class="headerlink" title="4.请求"></a>4.请求</h3><p>在 controller 层提供一个 POST 接口，就可以使用啦</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ChatGptController</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ChatGPTService chatGptService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/chat&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">receiveMsgFromDd</span><span class="params">(<span class="meta">@RequestBody</span> ChatRequestVO chatRequestVO)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> chatGptService.chatToGPT(chatRequestVO.getContent(), chatRequestVO.getUserName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、常见问题"><a href="#五、常见问题" class="headerlink" title="五、常见问题"></a>五、常见问题</h2><h3 id="1-价格"><a href="#1-价格" class="headerlink" title="1. 价格"></a>1. 价格</h3><p>本文使用的 gpt-3.5-turbo 模型价格为$0.002 &#x2F; 1K tokens，相比于上一代的 Davinci 模型确实是便宜了 90%。所以注册账户赠送的 18 美元可以称得上是肆无忌惮的使用都不怕了。</p>
+<p>自己账号的消费情况，可以在这个链接看到：<a target="_blank" rel="noopener" href="https://platform.openai.com/account/usage">platform.openai.com</a></p>
+<p><img src="http://img.esparks.cn/img/20230318212653_92caaed476e95d691bdd2708e92006e9.png"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>今天真是折腾了好久，连一分钱都没用完。而下面的两美元都是 2 月份时用上代模型自己往群里接机器人时，几个人扯扯淡给用没的……</p>
+<p>而完整的资费信息，官网链接在此：<a target="_blank" rel="noopener" href="https://openai.com/pricing">https://openai.com/pricing</a></p>
+<h3 id="2-如何降低费用"><a href="#2-如何降低费用" class="headerlink" title="2.如何降低费用"></a>2.如何降低费用</h3><p>当然，钱也不是大风刮来的，能省则省。而当一个对话产生了多条消息后，每次的请求都会占用大量的 token。token 就是钱！所以降低费用的方式就是避免过多地消耗 token，我们可以使用以下方法来优化对话：</p>
+<ol>
+<li>限制对话长度：可以设置对话的最大长度，以避免生成过多的文本。在生成下一句话之前，检查对话历史记录的长度是否超出了限制。如果超出了限制，可以结束对话或清空历史记录并重新开始。</li>
+<li>优化对话历史记录：尽量避免将无关或冗长的文本包含在对话历史记录中。其实我们也不好判断哪些是冗长的文本，所以可以采用固定大小队列的方式保存消息，即只保留最近几条消息作为请求，以提供可控数量的上下文信息。</li>
+</ol>
+<p>本文对应的程序采用了第一种方法，即在接口返回结果时，判断消息列表是否超长，是则清空列表，否则继续将本条消息追加到列表中。</p>
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>本文介绍了 OpenAI 聊天 API 的接入方式、各个参数的含义以及核心功能的代码实现。希望能够帮助大家“即便不看官方文档也可以轻松快速的实现 API 接入的开发”。</p>
+<h2 id="彩蛋时间"><a href="#彩蛋时间" class="headerlink" title="彩蛋时间"></a>彩蛋时间</h2><p>免费的ChatGPT体验网站，分享给大家：<a target="_blank" rel="noopener" href="http://chatgpt.esparks.cn/">http://chatgpt.esparks.cn/</a><br><img src="http://img.esparks.cn/img/blog/image-1679317033593.png" alt="image-1679317033593"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/freechatgpt.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">21</div>
+                    <div class="trm-cover-month">2023/03</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/">
+                    资源分享
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/freechatgpt.html" class="trm-anima-link">
+                    免费的ChatGPT镜像站，持续汇总中
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/03/21</li>
+                <li>23:34</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/archives/aosika.html" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-date">
+                    <div class="trm-cover-day">13</div>
+                    <div class="trm-cover-month">2023/03</div>
+                </div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/">
+                    资源分享
+                </a>
+            </div>
+            <h5>
+                <a href="/archives/aosika.html" class="trm-anima-link">
+                    第95届奥斯卡获奖合集，最佳影片瞬息全宇宙4k高清阿里云
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/03/13</li>
+                <li>13:05</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v8.1.1
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.6
+            </span>
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.6"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+    <script data-swup-reload-script>
+        (function () {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+
+
+<script id="async-script" src="/js/main.js?v=2.2.6"></script>
+
+<!-- CDN --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
